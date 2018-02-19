@@ -46,13 +46,12 @@ const config = {
             },
             {
                 test: /\.css$/,
-                use: [
+                use: ExtractTextPlugin.extract(
                     {
-                        loader: "style-loader"
-                    }, {
-                        loader: "css-loader",
+                        fallback: 'style-loader',
+                        use: 'css-loader'
                     }
-                ]
+                )
             },
             {
                 test: /\.(png|jpg|jpeg|gif|svg)$/,

@@ -33,6 +33,7 @@
     "bootstrap": "^3.3.7",
     "jquery": "^3.3.1",
     "popper.js": "^1.12.9",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "admin-lte": "^2.4.2"
   }
 }
