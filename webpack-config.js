@@ -3,6 +3,7 @@ var path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -13,6 +14,7 @@ const config = {
         path: path.join(__dirname, './dist'),
         publicPath: '/'
     },
+    // watch: true,
     resolve: {
         extensions: ['.js','.vue'],
         alias: {
@@ -23,7 +25,7 @@ const config = {
             'js':path.join(__dirname , './src/js'),
             'css':path.join(__dirname , './src/css'),
             'router':path.join(__dirname , './src/router'),
-            'service':path.join(__dirname , './src/service')
+            'service':path.join(__dirname , './src/service'),
         }
     },
     module: {
@@ -99,7 +101,10 @@ const config = {
             $: "jquery",
             jQuery: "jquery",
             'window.jQuery': 'jquery'
-          })
+        }),
+        new CopyWebpackPlugin([   
+            {from: 'src/assets/img', to: 'assets/img'}   
+        ]),
     ]
 }
 

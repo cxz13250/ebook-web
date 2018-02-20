@@ -35,7 +35,10 @@ export default {
       return {
           user: {
               email: '',
-              password: ''
+              mobile: '',
+              password: '',
+              roleName: '',
+              roleId: 1,
           },
           image: 'url("./assets/img/login_bg.jpg")'
       }
@@ -46,6 +49,10 @@ export default {
   methods:{
       login() {
         if(this.user.email == 'admin' && this.user.password == 'admin') {
+          this.user.email='1047907400@qq.com';
+          this.user.name='Mr哈哈哈';
+          this.user.roleName='管理员';
+          window.localStorage.setItem('user', JSON.stringify(this.user));
           this.$router.push({path: '/admin'})
         }
       },
