@@ -15,7 +15,7 @@
                 <input type="password" id="password" name="password" placeholder="请输入密码" class="login-input" v-model="user.password" @keyup.enter="login">
                 </dd>
                 <dd class="login-box">
-                <input type="button" class="login-btn" @click="login" value="登录">
+                <input type="button" class="login-btn" @click="userLogin" value="登录">
                 <router-link to="/register" style="float:right">没有账号，立即注册</router-link>
                 </dd>      
               </dl>
@@ -29,6 +29,7 @@
 
 <script>
 import efooter from './footer.vue';
+import { login, setUser } from 'service/user-service'
 export default {
   name: 'login',
   data() {
@@ -38,7 +39,7 @@ export default {
               mobile: '',
               password: '',
               roleName: '',
-              roleId: 1,
+              roleId: 0,
           },
           image: 'url("./assets/img/login_bg.jpg")'
       }
@@ -47,13 +48,22 @@ export default {
     
   },
   methods:{
-      login() {
-        if(this.user.email == 'admin' && this.user.password == 'admin') {
-          this.user.email='1047907400@qq.com';
-          this.user.name='Mr哈哈哈';
-          this.user.roleName='管理员';
-          window.localStorage.setItem('user', JSON.stringify(this.user));
-          this.$router.push({path: '/admin'})
+      async userLogin() {
+        if(!this.user.email || this.user.email.trim()==''){
+          alert('用户名不可为空');
+          return;
+        }
+        let res=await login(this.user);
+        if(res.status == 200) {
+          this.user=res.data;
+          setUser(this.user);
+          if(this.user.roleId == 1){
+            this.$router.push({path: '/admin'})
+          }else if(this.user.roleId == 2){
+            this.$router.push({path: '/custom'})
+          }
+        }else{
+          alert('密码错误');
         }
       },
       register() {

@@ -26,6 +26,7 @@ const config = {
             'css':path.join(__dirname , './src/css'),
             'router':path.join(__dirname , './src/router'),
             'service':path.join(__dirname , './src/service'),
+            'util':path.join(__dirname , './src/util'),
         }
     },
     module: {

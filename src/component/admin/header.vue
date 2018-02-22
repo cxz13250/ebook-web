@@ -175,7 +175,7 @@
 
 <script>
 import sideBar from './side.vue';
-import getUser from '../../service/user-service.js';
+import { getUser, loginout } from '../../service/user-service.js';
 export default {
   name: 'admin-header',
   data() {
@@ -190,24 +190,18 @@ export default {
       }
   },
   created() {
-    this.init();
+    this.user=getUser();
   },
   components: {
     sideBar
   },
   methods: {
-      init() {
-        // let res = await getUser();
-        // console.log(res);
-        this.user = JSON.parse(window.localStorage.getItem('user'));
-        // this.user=this.getUser;
-        // console.log(this.user);
-        // console.log(window.localStorage.getItem('user'));
-        // console.log(getUser);
-    },
-    signOut() {
-      window.localStorage.removeItem('user');
-      this.$router.push('/login');
+    async signOut() {
+      let res=await loginout();
+      if(res.status == 200){
+        window.localStorage.removeItem('user');
+        this.$router.push('/login');
+      }
     }
   }
 }

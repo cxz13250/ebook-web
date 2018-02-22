@@ -10,6 +10,10 @@
                             请填写基本信息
                         </dt>
                         <dd class="register-box">
+                            <label><i class="glyphicon glyphicon-user"></i></label>
+                            <input type="text" id="name" name="name" placeholder="请输入昵称" class="login-input" v-model="user.name">
+                        </dd>
+                        <dd class="register-box">
                             <label><i class="glyphicon glyphicon-envelope"></i></label>
                             <input type="text" id="email" name="email" placeholder="请输入邮箱地址" class="login-input" v-model="user.email">
                         </dd>
@@ -41,6 +45,7 @@
 
 <script>
 import efooter from './footer.vue';
+import { register, setUser} from 'service/user-service'
 export default {
   name: 'register',
   data() {
@@ -48,6 +53,7 @@ export default {
           password1: '',
           password2: '',
           user: {
+              name: '',
               email: '',
               mobile: '',
               password: ''
@@ -68,7 +74,7 @@ export default {
       }
   },
   methods: {
-      register() {
+      async register() {
           if(!this.validateEmail) {
               alert('邮箱地址格式不正确');
               return;
@@ -79,6 +85,12 @@ export default {
           }
           if(this.password1 != this.password2){
               alert('两次输入的密码不一致');
+          }
+          this.user.password=this.password1;
+          let res=await register(this.user);
+          if(res.status==200){
+              setUser(res.data);
+              this.$router.push('/custom');
           }
       }
   },

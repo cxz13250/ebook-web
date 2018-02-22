@@ -29,14 +29,14 @@
                                   <div class="col-sm-6">
                                       <div id="example1_filter" class="dataTables_filter">
                                           <label>
-                                              Search:<input type="search" class="form-control input-sm" aria-controls="example1" @click="search" v-model="keyword">
+                                              Search:<input type="search" class="form-control input-sm" aria-controls="example1" @keyup.enter="search" v-model="keyword">
                                           </label>
                                       </div>
                                   </div>
                               </div>
                               <div class="row">
                                   <div class="col-sm-12">
-                                    <table class="table table-bordered table-striped dataTable" id="example1">
+                                    <table class="table table-bordered table-striped dataTable" id="bookTable">
                                         <thead>
                                             <tr role="row">
                                                 <th>书名</th>
@@ -83,7 +83,7 @@ export default {
                     recent: 10
                 },
                 {
-                    id: 1,
+                    id: 2,
                     name: '三国演义',
                     author: '罗贯中',
                     number: 'ECS12124',
@@ -91,7 +91,7 @@ export default {
                     recent: 10
                 },
                 {
-                    id: 1,
+                    id: 3,
                     name: '三国演义',
                     author: '罗贯中',
                     number: 'ECS12124',
@@ -99,7 +99,7 @@ export default {
                     recent: 10
                 },
                 {
-                    id: 1,
+                    id: 4,
                     name: '三国演义',
                     author: '罗贯中',
                     number: 'ECS12124',
@@ -107,7 +107,7 @@ export default {
                     recent: 10
                 },
                 {
-                    id: 1,
+                    id: 5,
                     name: '三国演义',
                     author: '罗贯中',
                     number: 'ECS12124',
@@ -122,7 +122,9 @@ export default {
 
     },
     methods: {
-        search() {}
+        search() {
+            console.log('我滴书呢');
+        }
     }
 }
 </script>

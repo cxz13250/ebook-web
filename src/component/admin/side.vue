@@ -63,7 +63,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                <li><router-link to='/admin/operation/list'><i class="fa fa-circle-o"></i>日志列表</router-link></li>
+                <li><router-link to='/admin/operations'><i class="fa fa-circle-o"></i>日志列表</router-link></li>
                 </ul>
             </li>
             <li class="treeview">
