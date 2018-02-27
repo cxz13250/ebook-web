@@ -38,6 +38,24 @@ export const getOperations = (page, rows) =>{
     })
 }
 
+export const getUsers = (page, rows) =>{
+    return fetch('/api/users?page='+page+'&rows='+rows,{
+        method: 'GET',
+        credentials: 'same-origin'
+    }).then(function(res) {
+        return res.json();
+    })
+}
+
+export const getUserInfo = (id) =>{
+    return fetch('/api/user?userId='+id,{
+        method: 'GET',
+        credentials: 'same-origin'
+    }).then(function(res) {
+        return res.json();
+    })
+}
+
 export const getUser = () => {
     return JSON.parse(window.localStorage.getItem('user'));
 }

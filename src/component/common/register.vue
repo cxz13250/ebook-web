@@ -56,7 +56,8 @@ export default {
               name: '',
               email: '',
               mobile: '',
-              password: ''
+              password: '',
+              roleId: 2,
           },
           image: 'url("./assets/img/login_bg.jpg")'
       }

@@ -4,6 +4,13 @@ import register from '../component/common/register.vue';
 import admin from 'admin/main.vue';
 import custom from 'custom/main.vue';
 import bookListAdmin from 'admin/book/book-list';
+import userList from 'admin/user/user-list';
+import categoryList from 'admin/category/category-list';
+import orderList from 'admin/order/order-list';
+import categoryDetail from 'admin/category/category-detail';
+import bookDetailAdmin from 'admin/book/book-detail';
+import userDetail from 'admin/user/user-detail';
+import orderDetail from 'admin/order/order-detail';
 import operations from 'admin/operation-list';
 import bookListCustom from 'custom/book-list';
 import Router from 'vue-router'
@@ -11,17 +18,25 @@ import app from '../app.vue';
 
 Vue.use(Router);
 export default new Router({
+    mode: 'hash',
     routes: [
         { path: '/' ,component: app ,children:[
             { path: '' ,component: login },
             { path: '/login' ,component: login },
             { path: '/register' ,component: register },
             { path: '/admin' ,component: admin, children:[
-                { path: '/admin/books' ,component: bookListAdmin },
-                { path: '/admin/operations' ,component: operations },
+                { path: 'books' ,component: bookListAdmin },
+                { path: 'book' ,component: bookDetailAdmin },
+                { path: 'operations' ,component: operations },
+                { path: 'users' ,component: userList },
+                { path: 'user' ,component: userDetail },
+                { path: 'categories' ,component: categoryList },
+                { path: 'category' ,component: categoryDetail },
+                { path: 'orders' ,component: orderList },
+                { path: 'order' ,component: orderDetail },
             ] },
             { path: '/custom' ,component: custom, children:[
-                { path: '/custom/books' ,component: bookListCustom },
+                { path: 'books' ,component: bookListCustom },
             ] },
         ]},
     ]

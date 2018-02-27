@@ -25,7 +25,9 @@
                       <div class="box-body">
                           <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                               <div class="row">
-                                  <div class="col-sm-6"></div>
+                                  <div class="col-sm-6">
+                                      <router-link class="btn btn-primary" to="/admin/book">添加书籍</router-link>
+                                  </div>
                                   <div class="col-sm-6">
                                       <div id="example1_filter" class="dataTables_filter">
                                           <label>
@@ -44,6 +46,7 @@
                                                 <th>作者</th>
                                                 <th>出版时间</th>
                                                 <th>剩余数量</th>
+                                                <th>操作</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -51,8 +54,12 @@
                                                 <td>{{book.name}}</td>
                                                 <td>{{book.number}}</td>
                                                 <td>{{book.author}}</td>
-                                                <td>{{book.time}}</td>
+                                                <td>{{book.time | formatDate}}</td>
                                                 <td>{{book.recent}}</td>
+                                                <td>
+                                                    <router-link class="btn btn-info btn-sm" :to="{path:'/admin/book',query:{id:book.id}}">详情</router-link>
+                                                    <a type="button" class="btn btn-warning btn-sm" click="delete(book.id)">删除</a>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -68,11 +75,15 @@
 </template>
 
 <script>
+import { formatDate } from 'util/date-util.js';
+import { getBooks, deleteBook } from 'service/book-service';
 export default {
     name: 'book-list-admin',
     data() {
         return {
             keyword: '',
+            page: 1,
+            rows: 10,
             books: [
                 {
                     id: 1,
@@ -81,49 +92,30 @@ export default {
                     number: 'ECS12124',
                     time: '2011-01-01',
                     recent: 10
-                },
-                {
-                    id: 2,
-                    name: '三国演义',
-                    author: '罗贯中',
-                    number: 'ECS12124',
-                    time: '2011-01-01',
-                    recent: 10
-                },
-                {
-                    id: 3,
-                    name: '三国演义',
-                    author: '罗贯中',
-                    number: 'ECS12124',
-                    time: '2011-01-01',
-                    recent: 10
-                },
-                {
-                    id: 4,
-                    name: '三国演义',
-                    author: '罗贯中',
-                    number: 'ECS12124',
-                    time: '2011-01-01',
-                    recent: 10
-                },
-                {
-                    id: 5,
-                    name: '三国演义',
-                    author: '罗贯中',
-                    number: 'ECS12124',
-                    time: '2011-01-01',
-                    recent: 10
-                },
-
+                }
             ]
         }
     },
+    filters: {
+        formatDate(time) {
+            return formatDate(time);
+        }
+    },
     created() {
-
+        this.search();
     },
     methods: {
-        search() {
-            console.log('我滴书呢');
+        async search() {
+            let res = await getBooks(this.page,this.rows);
+            if(res.status == 200){
+                this.books = res.data.list; 
+            }
+        },
+        async delete(id) {
+            let res = await deleteBook(id);
+            if(res.status == 200){
+                
+            }
         }
     }
 }

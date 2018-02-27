@@ -27,6 +27,7 @@ const config = {
             'router':path.join(__dirname , './src/router'),
             'service':path.join(__dirname , './src/service'),
             'util':path.join(__dirname , './src/util'),
+            'constants':path.join(__dirname , './src/constants'),
         }
     },
     module: {

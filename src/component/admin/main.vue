@@ -5,12 +5,14 @@
         <div class="content-wrapper" style="min-height: 960px;">
           <router-view></router-view>
         </div>
+        <efooter></efooter>
       </div>
   </div>
 </template>
 
 <script>
 import adminHeader from './header.vue';
+import efooter from './footer.vue';
 export default {
   name: 'admin-main',
   data() {
@@ -22,7 +24,8 @@ export default {
     
   },
   components: {
-    adminHeader
+    adminHeader,
+    efooter
   },
 }
 </script>

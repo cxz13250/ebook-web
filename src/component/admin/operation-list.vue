@@ -33,7 +33,7 @@
                               </div>
                               <div class="row">
                                   <div class="col-sm-12">
-                                    <table class="table table-bordered table-striped dataTable" id="operationTable">
+                                    <table class="table table-bordered table-striped dataTable" id="operationTable" cellspacing="0">
                                         <thead>
                                             <tr role="row">
                                                 <th width="25%">操作者</th>
@@ -43,7 +43,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr role="row" v-for="operation in operations" :key="operation.id">
+                                            <tr role="row" v-for="operation in operations" :key="operation.createTime">
                                                 <td>{{operation.name}}</td>
                                                 <td>{{operation.ip}}</td>
                                                 <td>{{operation.operation}}</td>
@@ -70,8 +70,15 @@ export default {
     data() {
         return {
             page: 1,
-            rows: 10,
+            rows: 15,
             keyword: '',
+            dataTable: {
+                draw: 1,
+                recordsTotal: 1,
+                recordsFiltered: 1,
+                data: [],
+                error: ''
+            },
             operations: [
                 {
                     id: 1,
@@ -93,13 +100,66 @@ export default {
     },
     created() {
         this.search();
-        $('#operationTable').DataTable({
-            "serverSide" : true, 
-            "paging": true,
-            "pageLength": 10,   
-            "lengthChange": false,
-            "data": this.operations
+        $(document).ready(function() {
+            $('#operationTable').DataTable({
+                paging: true,
+                bPaginate: true,
+                iDisplayLength: 10,
+                searching: false,
+                bLengthChange: false,
+                bAutoWidth: true,
+                bSort: false,
+                info: false,
+                columns: [
+                    { "data": "name" },
+                    { "data": "ip" },
+                    { "data": "operation" },
+                    { "data": "createTime" }
+                ]
+            });
         });
+        // $('#operationTable').dataTable().fnDestroy();
+        // var table = $('#operationTable').DataTable({
+        //     bServerSide : true, 
+        //     paging: true,
+        //     pageLength: 10,   
+        //     lengthChange: false,
+        //     stripeClasses: ["odd", "even"],
+        //     processing: true,
+        //     autoWidth: false,
+        //     pagingType: "simple_numbers",
+        //     searching: false,  
+        //     orderMulti: false,  
+        //     renderer: "bootstrap",
+        //     "ajax": function (data, callback, settings) {
+        //         var param = {};
+        //         param.rows = data.length;//页面显示记录条数，在页面显示每页显示多少项的时候
+        //         param.start = data.start;
+        //         param.page = (data.start / data.length)+1;
+        //         $.ajax({
+        //             url: '/api/operations',
+        //             type: 'GET',
+        //             data: param,
+        //             dataSrc: 'data',
+        //             dataType: "json",
+        //             success: function(res){
+        //                 var json = {};
+        //                 json.draw = res.data.total;
+        //                 json.recordsTotal = res.data.total;
+        //                 json.recordsFiltered = res.data.total;
+        //                 json.data = res.data.list;
+        //                 console.log(json);
+        //                 callback(json);
+        //             }
+        //         })
+        //     },
+        //     columns: [
+        //         { "data": "name" },
+        //         { "data": "ip" },
+        //         { "data": "operation" },
+        //         { "data": "createTime" }
+        //     ]
+        // });
     },
     methods: {
         async search() {

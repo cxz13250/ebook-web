@@ -6,7 +6,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="assets/img/two_cat.jpg" class="img-circle" alt="User Image">
+                <img src="/assets/img/two_cat.jpg" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
                 <p>{{user.name}}</p>
@@ -53,7 +53,7 @@
                 </a>
                 <ul class="treeview-menu">
                 <li><router-link to='/admin/books'><i class="fa fa-circle-o"></i>书籍列表</router-link></li>
-                <li><router-link to='/admin/category/list'><i class="fa fa-circle-o"></i>书籍分类</router-link></li>
+                <li><router-link to='/admin/categories'><i class="fa fa-circle-o"></i>书籍分类</router-link></li>
                 </ul>
             </li>
             <li class="treeview">
@@ -73,7 +73,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                <li><router-link to='/admin/book/list'><i class="fa fa-circle-o"></i>用户列表</router-link></li>
+                <li><router-link to='/admin/users'><i class="fa fa-circle-o"></i>用户列表</router-link></li>
                 </ul>
             </li>
             <li class="treeview">
@@ -83,7 +83,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                <li><router-link to='/admin/order/list'><i class="fa fa-circle-o"></i>书单列表</router-link></li>
+                <li><router-link to='/admin/orders'><i class="fa fa-circle-o"></i>书单列表</router-link></li>
                 </ul>
             </li>
         </ul>
