@@ -91,7 +91,7 @@ export default {
         async search() {
             let res = await getCategories(this.page,this.rows);
             if(res.status == 200){
-                this.users=res.data.list;
+                this.categories=res.data.list;
             }
         }
     },
