@@ -2,6 +2,7 @@ import Vue from 'vue';
 import App from './app';
 import router from './router/router'
 import VueResource from 'vue-resource'
+import VueSweetalert2 from 'vue-sweetalert2';
 
 import 'css/main.css';
 import $ from 'jquery';
@@ -27,7 +28,8 @@ import 'css/pnotify.custom.min.css'
 Vue.config.debug = true;//开启错误提示
 // Vue.config.productionTip = false
 
-Vue.use(VueResource)
+Vue.use(VueResource);
+Vue.use(VueSweetalert2);
 
 Vue.http.interceptors.push((request, next) => {
     next((response) => {
@@ -41,7 +43,7 @@ Vue.http.interceptors.push((request, next) => {
 
 
 router.beforeEach((to,from,next) => {
-    if(to.path == '/login' || to.path == '/register') {
+    if(to.path == '/login' || to.path == '/register' || to.path.indexOf('/custom')>-1) {
         next()
     }
     else if(!window.localStorage.getItem('user')){

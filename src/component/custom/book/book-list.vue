@@ -8,7 +8,9 @@
 export default {
     name: 'book-list-custom',
     data() {
-        
+        return {
+            books: []
+        }
     },
     created() {
 

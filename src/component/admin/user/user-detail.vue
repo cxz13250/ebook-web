@@ -117,10 +117,8 @@ export default {
     methods: {
         async search(id) {
             let res = await getUserInfo(id);
-            console.log(res.data);
             if(res.status == 200){
                 this.user = res.data;
-                console.log(this.user);
             }
         },
         goBack() {

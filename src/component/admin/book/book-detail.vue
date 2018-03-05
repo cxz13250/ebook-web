@@ -72,7 +72,7 @@
                   <div class="form-group">
                         <label class="col-sm-3 control-label">出版时间</label>
                         <div class="col-sm-6">
-                            <date-picker :date="startTime" :option="option" :limit="limit"></date-picker>
+                            <date-picker :date="startTime" :option="option" :limit="limit" @blur="checkTime"></date-picker>
                         </div>
                         <label class="col-sm-3 control-label warning" v-if="timeInvalid"><i class="fa fa-close"></i>时间不可为空</label>
                   </div>
@@ -221,9 +221,10 @@ export default {
             this.checkCategory();
             this.checkAuthor();
             this.checkPublisher();
+            this.checkTime();
             this.checkTotal();
             this.checkDescrip();
-            if(this.nameInvalid() || this.cateInvalid || this.authorInvalid || this.publisherInvalid || this.timeInvalid
+            if(this.nameInvalid || this.cateInvalid || this.authorInvalid || this.publisherInvalid || this.timeInvalid
              || this.totalInvalid || this.descripInvalid){
                 return;
             }
@@ -251,7 +252,6 @@ export default {
             }
         },
         goBack() {
-            // this.$router.go(-1);
             window.history.go(-1);
         },
         chooseFile() {
@@ -310,11 +310,11 @@ export default {
                 this.totalInvalid = false;
             }
         },
-        checkTotal(){
-            if(!this.book.total || this.book.total <= 0){
-                this.totalInvalid = true;
+        checkTime(){
+            if(!this.book.publishTime || this.book.publishTime.trim()=='' ){
+                this.timeInvalid = true;
             }else{
-                this.totalInvalid = false;
+                this.timeInvalid = false;
             }
         },
         checkDescrip(){

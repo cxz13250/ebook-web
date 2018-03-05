@@ -69,3 +69,11 @@ html, body, div {
   button:hover {
     background-color: #28739e;
   }
+
+  .pointer {
+    cursor: pointer;
+  }
+
+  ol, ul{
+    list-style: none;
+  }

@@ -38,6 +38,7 @@
                           <label class="col-sm-3 control-label" for="categoryMenu">所属菜单</label>
                           <div class="col-sm-6">
                               <select class="form-control" v-model="category.menu" id="categoryMenu" @blur="checkMenu">
+                                  <option value="-1">请选择菜单</option>
                                   <option v-for="menu in menus" v-bind:value="menu.menu" :key="menu.id">{{menu.menu}}</option>
                               </select>
                           </div>

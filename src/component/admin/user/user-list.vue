@@ -82,7 +82,14 @@ export default {
                     'mobile':'',
                     'createTime':0
                 }
-            ]
+            ],
+            dataTable: {
+                draw: 1,
+                recordsTotal: 1,
+                recordsFiltered: 1,
+                data: [],
+                error: ''
+            },
         }
     },
     created() {
