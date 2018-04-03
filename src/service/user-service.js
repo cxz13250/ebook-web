@@ -38,8 +38,12 @@ export const getOperations = (page, rows) =>{
     })
 }
 
-export const getUsers = (page, rows) =>{
-    return fetch('/api/users?page='+page+'&rows='+rows,{
+export const getUsers = (page, rows, keyword) =>{
+    var url='/api/users?page='+page+'&rows='+rows;
+    if(keyword&&keyword.trim()!=""){
+        url=url+'&keyword='+keyword;
+    }
+    return fetch(url,{
         method: 'GET',
         credentials: 'same-origin'
     }).then(function(res) {
@@ -51,6 +55,17 @@ export const getUserInfo = (id) =>{
     return fetch('/api/user?userId='+id,{
         method: 'GET',
         credentials: 'same-origin'
+    }).then(function(res) {
+        return res.json();
+    })
+}
+
+export const updateUser=(user) => {
+    return fetch('/api/user',{
+        method: 'PUT',
+        headers: {'Content-Type':'application/json'},
+        credentials: 'same-origin',
+        body: JSON.stringify(user)
     }).then(function(res) {
         return res.json();
     })

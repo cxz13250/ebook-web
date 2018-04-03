@@ -42,8 +42,8 @@
                                         <thead>
                                             <tr role="row">
                                                 <th>书名</th>
-                                                <th>编号</th>
                                                 <th>作者</th>
+                                                <th>出版社</th>
                                                 <th>出版时间</th>
                                                 <th>剩余数量</th>
                                                 <th>操作</th>
@@ -52,10 +52,10 @@
                                         <tbody>
                                             <tr role="row" v-for="book in books" :key="book.id">
                                                 <td>{{book.name}}</td>
-                                                <td>{{book.number}}</td>
                                                 <td>{{book.author}}</td>
-                                                <td>{{book.time | formatDate}}</td>
-                                                <td>{{book.recent}}</td>
+                                                <td>{{book.publisher}}</td>
+                                                <td>{{book.publishTime}}</td>
+                                                <td>{{book.total-book.borrowed}}</td>
                                                 <td>
                                                     <router-link class="btn btn-info btn-sm" :to="{path:'/admin/book',query:{id:book.id}}">详情</router-link>
                                                     <a type="button" class="btn btn-warning btn-sm" click="delete(book.id)">删除</a>

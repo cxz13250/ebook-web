@@ -1,9 +1,9 @@
 <template>
   <footer class="login-footer">
         <!--<div class="clearfix"></div>-->
-        <span>Copy-right:南京大学软件工程与计算Ⅱ第63小组</span><br>
-        <span>南京大学：
-            <a href="https://www.nju.edu.cn/n" target="_blank" class="default underline">https://www.nju.edu.cn/</a>
+        <span>Copy-right:南京信息工程大学</span><br>
+        <span>南京信息工程大学：
+            <a href="http://www.nuist.edu.cn/" target="_blank" class="default underline">http://www.nuist.edu.cn/</a>
         </span>
     </footer>
 </template>

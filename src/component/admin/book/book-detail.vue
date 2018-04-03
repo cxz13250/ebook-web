@@ -214,6 +214,7 @@ export default {
             let res = await getBook(id);
             if(res.status == 200){
                 this.book = res.data;
+                this.startTime.time=this.book.publishTime;
             }
         },
         async save() {
@@ -311,6 +312,8 @@ export default {
             }
         },
         checkTime(){
+            this.book.publishTime=this.startTime.time;
+            console.log(this.startTime);
             if(!this.book.publishTime || this.book.publishTime.trim()=='' ){
                 this.timeInvalid = true;
             }else{

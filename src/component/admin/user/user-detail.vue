@@ -84,8 +84,9 @@
 </template>
 
 <script>
-import { getUserInfo, updateUser } from 'service/user-service';
+import { getUserInfo, updateUser ,setUser } from 'service/user-service';
 import { roles } from '../../../constants/role'
+import userListVue from './user-list.vue';
 export default {
     name: 'user-admin',
     data() {
@@ -134,6 +135,7 @@ export default {
             }
             let res = await updateUser(this.user);
             if(res.status == 200){
+                setUser(res.data);
                 this.$router.push({path:'users'});
             }
         },

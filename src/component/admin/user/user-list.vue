@@ -120,7 +120,7 @@ export default {
     },
     methods: {
         async search() {
-            let res = await getUsers(this.page,this.rows);
+            let res = await getUsers(this.page,this.rows,this.keyword);
             if(res.status == 200){
                 this.users=res.data.list;
             }
