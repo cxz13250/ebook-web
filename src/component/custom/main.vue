@@ -1,8 +1,9 @@
 <template>
   <div>
-    <div class="wrapper" style="height: auto; min-height: 100%;">
+    <div class="wrapper" style="height: auto; min-height: 100%;background-color: #f3f5f7;">
       <customHeader></customHeader>
-      顾客主页，尚在开发中~~~
+      <customCurtain></customCurtain>
+      <bookList></bookList>
       <router-view></router-view>
     </div>
   </div>
@@ -10,7 +11,9 @@
 
 <script>
 import customHeader from './header.vue';
+import customCurtain from './curtain.vue';
 import bookItem from 'custom/book/book-item';
+import bookList from 'custom/book/book-list';
 export default {
   name: 'custom-main',
   data() {
@@ -19,7 +22,9 @@ export default {
       }
   },
   components: {
-    customHeader
+    customHeader,
+    customCurtain,
+    bookList
   }
 }
 </script>

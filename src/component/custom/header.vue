@@ -41,8 +41,8 @@
           </div>
           <div class="search-wrap">
               <div class="searchTags" v-if="showTag">
-                  <router-link to="/books">科技</router-link>
-                  <router-link to="/books">文学</router-link>
+                  <router-link to="/custom/books">科技</router-link>
+                  <router-link to="/custom/books">文学</router-link>
               </div>
               <div class="search-area">
                   <input type="text" class="search-input" @blur="setTags" @focus="setTags"/>
@@ -53,7 +53,6 @@
                   <i class="fa fa-search pointer"></i>
               </div>
           </div>
-          <div></div>
       </div>
   </div>
 </template>

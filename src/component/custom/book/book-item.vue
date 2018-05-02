@@ -1,16 +1,16 @@
 <template>
   <div class="item-container">
-      <a @click="toBook" href="#">
-          <div class="item-card">
+      <a @click="toBook">
+          <div class="item-card pointer">
               <img v-bind:src="book.imgUrl" class="item-img"/>
               <div class="item-label">
                   <label>{{book.categoryName}}</label>
               </div>
           </div>
-          <div class="item-content">
-              <h3>{{book.name}}</h3>
-          </div>
-      </a>
+        </a>
+        <div class="item-content">
+            <a @click="toBook" class="pointer">{{book.name}}</a>
+        </div>    
   </div>
 </template>
 
@@ -27,6 +27,9 @@ export default {
           required: true
       }
   },
+  componets: {
+
+  },
   methods: {
       toBook() {
           this.$router.push({path: '/custom/book',query:{id:this.book.id}});
@@ -38,18 +41,21 @@ export default {
 <style>
 .item-container{
     float: left;
-    margin-left: 18px;
+    margin-left: 25px;
     border-radius: 4px;
-    margin-bottom: 12px;
-    width: 216px;
+    margin-bottom: 25px;
+    width: 18%;
     height: 252px;
     position: relative;
     transition: .3s all linear;
+    padding: 4px;
+    background-color: #fff;
+    border: 1px solid #fff;
 }
 .item-card{
     overflow: hidden;
-    width: 216px;
-    height: 120px;
+    width: 200px;
+    height: 180px;
     position: relative;
     border-radius: 8px;
     transition: all .3s;
