@@ -2,19 +2,33 @@
   <div id="header" style="background: #07111b;">
       <div class="head-container" id="nav">
           <div class="logo">
-              <router-link class="logo-a" to="/custom">
+              <router-link class="logo-a" to="/custom/main">
                 <img src="assets/img/book.png" class="headImg"/>
                 <span>图书借阅系统</span>
               </router-link>
           </div>
           <ul class="nav-item">
               <li>
-                  <router-link to="/custom">首页</router-link></li>
+                  <router-link to="/custom/main">首页</router-link></li>
               <li>
                   <router-link to="/custom/user">个人信息</router-link></li>
               <li>
                   <router-link to="/custom/orders">订单信息</router-link></li>
           </ul>
+          <div class="search-wrap">
+              <div class="searchTags" v-if="showTag">
+                  <router-link to="/custom/books">科技</router-link>
+                  <router-link to="/custom/books">文学</router-link>
+              </div>
+              <div class="search-area">
+                  <input type="text" class="search-input" @blur="setTags" @focus="setTags"/>
+                  <input type="hidden" class="btn_search"/>
+                  <ul class="search-area-result"></ul>
+              </div>
+              <div class="showhide-search">
+                  <i class="fa fa-search pointer"></i>
+              </div>
+          </div>
           <div class="login-area">
               <ul class="header-unlogin clearfix">
                   <li class="shop-cart">
@@ -38,20 +52,6 @@
                       <router-link to="/register" class="signin">注册</router-link>
                   </li>
               </ul>
-          </div>
-          <div class="search-wrap">
-              <div class="searchTags" v-if="showTag">
-                  <router-link to="/custom/books">科技</router-link>
-                  <router-link to="/custom/books">文学</router-link>
-              </div>
-              <div class="search-area">
-                  <input type="text" class="search-input" @blur="setTags" @focus="setTags"/>
-                  <input type="hidden" class="btn_search"/>
-                  <ul class="search-area-result"></ul>
-              </div>
-              <div class="showhide-search">
-                  <i class="fa fa-search pointer"></i>
-              </div>
           </div>
       </div>
   </div>
@@ -96,6 +96,7 @@ export default {
     position: relative;
     z-index: 88;
     background-color: #07111b;
+    overflow: hidden;
 }
 .head-container a:hover{
     color: #fff;
@@ -126,6 +127,7 @@ export default {
     position: relative;
     font-size: 14px;
     font-weight: 400;
+    top:-10px;
 }
 .header-unlogin{
     margin-bottom: 0px;
@@ -187,6 +189,7 @@ export default {
     position: relative;
     margin-left: 24px;
     color: #fff;
+    top:-10px;
 }
 .searchTags{
     position: absolute;
