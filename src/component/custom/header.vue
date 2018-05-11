@@ -3,8 +3,8 @@
       <div class="head-container" id="nav">
           <div class="logo">
               <router-link class="logo-a" to="/custom/main">
-                <img src="assets/img/book.png" class="headImg"/>
-                <span>图书借阅系统</span>
+                <img src="assets/img/logo.png" class="headImg"/>
+                <span class="logo-title">图书借阅系统</span>
               </router-link>
           </div>
           <ul class="nav-item">
@@ -21,19 +21,19 @@
                   <router-link to="/custom/books">文学</router-link>
               </div>
               <div class="search-area">
-                  <input type="text" class="search-input" @blur="setTags" @focus="setTags"/>
+                  <input type="text" class="search-input" @blur="setTags" @focus="setTags" v-bind="keyword"/>
                   <input type="hidden" class="btn_search"/>
                   <ul class="search-area-result"></ul>
               </div>
               <div class="showhide-search">
-                  <i class="fa fa-search pointer"></i>
+                  <i class="fa fa-search pointer" @click="search"></i>
               </div>
           </div>
           <div class="login-area">
               <ul class="header-unlogin clearfix">
                   <li class="shop-cart">
-                      <a class="shop-cart-icon">
-                           <span class="fa fa-shopping-cart icon-cart">
+                      <a class="shop-cart-icon pointer">
+                           <span class="glyphicon glyphicon-shopping-cart">
                            </span>
                            <span>购物车</span>
                            <span class="shop-icon"></span>
@@ -65,7 +65,8 @@ export default {
         return {
             user: {},
             showLogin: true,
-            showTag: true
+            showTag: true,
+            keyword:""
         }
     },
     created() {
@@ -80,6 +81,9 @@ export default {
         },
         setTags() {
             this.showTag = !this.showTag;
+        },
+        search() {
+            this.$router.push({path: '/custom/books',query:{keyword:this.keyword}});
         }
     }
 }
@@ -108,6 +112,9 @@ export default {
 .logo{
     margin: 0px 20px;
     float: left;
+}
+.logo-title{
+    color: #0082df;
 }
 .logo-a{
     display: block;

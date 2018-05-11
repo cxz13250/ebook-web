@@ -9,7 +9,7 @@
           </div>
         </a>
         <div class="item-content">
-            <a @click="toBook" class="pointer">{{book.name}}</a>
+            <p class="item-name pointer" @click="toBook">{{book.name}}</p>
         </div>    
   </div>
 </template>
@@ -41,10 +41,10 @@ export default {
 <style>
 .item-container{
     float: left;
-    margin-left: 25px;
+    margin-left: 48px;
     border-radius: 4px;
     margin-bottom: 25px;
-    width: 18%;
+    width: 16%;
     height: 252px;
     position: relative;
     transition: .3s all linear;
@@ -76,6 +76,23 @@ export default {
     font-size: 12px;
     color: #FFF;
     line-height: 16px;
+}
+.item-name{
+    text-align: center;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 700;
+    max-height: 48px;
+    /* margin-top: 16px; */
+    transition: .3s all linear;
+    word-break: break-all;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: -o-ellipsis-lastline;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    color: #2B333B;
 }
 .item-content-bottom{
 

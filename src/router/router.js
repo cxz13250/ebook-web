@@ -13,6 +13,7 @@ import userDetail from 'admin/user/user-detail';
 import orderDetail from 'admin/order/order-detail';
 import operations from 'admin/operation-list';
 import bookListCustom from 'custom/book/book-list';
+import bookInfoCustom from 'custom/book/book-info';
 import userInfo from 'custom/user/user-info';
 import mainPage from 'custom/main-page';
 import orderListCustom from 'custom/order/order-list';
@@ -44,6 +45,7 @@ export default new Router({
                 { path: 'books' ,component: bookListCustom },
                 { path: 'user' ,component: userInfo },
                 { path: 'orders' ,component: orderListCustom },
+                { path: 'book', component: bookInfoCustom }
             ] },
         ]},
     ]

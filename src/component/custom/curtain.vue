@@ -19,6 +19,11 @@
       <div class="carousel-caption">
       </div>
     </div>
+    <div class="item">
+      <img src="assets/img/bg_13.jpg" alt="...">
+      <div class="carousel-caption">
+      </div>
+    </div>
   </div>
 
   <!-- Controls -->
