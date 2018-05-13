@@ -6,7 +6,7 @@
                     <img class="avator-img" src="assets/img/two_cat.jpg">
                     <div class="change-avator">
                         <p>
-                            <a href="javascript:void(0);" style="color: inherit;">更换头像</a>
+                            <a role="button" style="color: inherit;cursor:default">更换头像</a>
                         </p>
                     </div>
                 </div>
@@ -55,7 +55,7 @@
                             </p>
                         </div>
                         <div class="right">
-                            <a href="javascript:void(0);" class="moco-btn moco-btn-normal">更改</a>
+                            <a href="javascript:void(0);" class="moco-btn moco-btn-normal" @click="editEmail">更改</a>
                         </div>
                     </div>
                     <div class="itemBox">
@@ -93,6 +93,23 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="email" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top:-12px"><span
+          @click="cancel">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">修改邮箱</h4>
+                    </div>
+                    <div class="modal-body"></div>
+                    <div class="modal-footer">
+                        <button class="moco-btn moco-btn-blue" @click="updateUser('email')">确定</button>
+                        <button class="moco-btn moco-btn-normal" @click="cancel">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -123,6 +140,19 @@ export default {
         },
         showOperation() {
             
+        },
+        editEmail() {
+            $('#email').modal('show');
+        },
+        cancel(){
+            $('#email').modal('hide');
+        },
+        async updateUser(label){
+            console.log(label);
+            let res = updateUser(this.user);
+            if(res.status==200){
+                $('#'+label).modal('hide');
+            }
         }
     },
     components: {
@@ -223,12 +253,21 @@ export default {
     height: 90px;
     width: 90px;
 }
+
+.avator-mode:hover > div {
+    bottom: 0px;
+    color: #fff;
+    background-color: #1c1f21;
+}
+
 .change-avator{
     font-size: 12px;
     position: absolute;
     width: 100%;
     left: 0;
     bottom: 0px;
+    bottom: -30px;
+    transition:bottom .3s;
 }
 .info-title{
     line-height: 40px;
@@ -295,6 +334,18 @@ export default {
     border-color: #9199a1;
     opacity: 1;
 }
+.moco-btn-blue{
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+    -weibkit-transition: all .3s;
+    -moz-transition: all .3s;
+    transition: all .3s;
+    color: #fff;
+    background-color: #1481b8;
+    border-color: #1481b8;
+    opacity: 1;
+}
 .moco-btn{
     margin-right: 10px;
     position: relative;
@@ -339,5 +390,11 @@ export default {
     line-height: 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale
+}
+.close-new{
+    margin-top: -12px;
+}
+.modal-content{
+    border-radius: 6px;
 }
 </style>

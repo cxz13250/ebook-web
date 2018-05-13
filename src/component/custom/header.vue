@@ -13,7 +13,7 @@
               <li>
                   <router-link to="/custom/user">个人信息</router-link></li>
               <li>
-                  <router-link to="/custom/orders">订单信息</router-link></li>
+                  <router-link to="/custom/orders">借阅记录</router-link></li>
           </ul>
           <div class="search-wrap">
               <div class="searchTags" v-if="showTag">
@@ -329,6 +329,14 @@ export default {
     float: left;
     position: relative;
 }
+
+.user-modal {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 1080;
+}
+
 .header-avator{
     display: block;
     height: 72px;

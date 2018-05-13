@@ -1,54 +1,67 @@
 <template>
   <div class="book-wrapper">
-      <div class="book-left">
-          <div class="pic">
-              <div class="pic-info">
-                  <img class="book-img" v-bind:src="book.imgUrl">
-              </div>
-          </div>
+      <div class="book-container">
+        <div class="book-left">
+            <div class="pic">
+                <div class="pic-info">
+                    <img class="book-img" v-bind:src="book.imgUrl">
+                </div>
+            </div>
+        </div>
+        <div class="book-right">
+            <div class="book-info">
+                <h1 v-bind:title="book.name">{{book.name}}</h1>
+                <div class="line"></div>  
+                <div class="message">
+                    <span class="t1">作者:{{book.author}} 著</span>
+                    <span class="t1" v-if="book.translator">{{book.translator}} 译</span>
+                    <span class="t1">出版社:{{book.publisher}}</span>
+                    <span class="t1">出版时间:{{book.publishTime}}</span>
+                    <span class="t1">标准书号ISBN:{{book.number}}</span>
+                </div>
+                <div class="line"></div>
+                <h2>{{book.description}}</h2>
+                <div class="line"></div>
+                <a class="btn btn-primary" @click="addToCart" style="margin-top:20px;">立刻借阅</a>
+                <span class="t1">剩余库存:{{book.total-book.borrowed}}/{{book.total}}</span>
+            </div>
+        </div>
       </div>
-      <div class="book-right">
-          <div class="book-info">
-              <h1 v-bind:title="book.name">{{book.name}}</h1>
-              <div class="line"></div>
-              <h2>{{book.description}}</h2>
-              <div class="line"></div>
-              <div class="message">
-                  <span class="t1">作者:{{book.author}} 著</span>
-                  <span class="t1">出版社:{{book.publisher}}</span>
-                  <span class="t1">出版时间:{{book.publishTime}}</span>
-              </div>
-              <div class="line"></div>
-          </div>
-      </div>
+      <div class="line clear-fix"></div>  
+      <bookList :num="5"></bookList>
   </div>
 </template>
 
 <script>
+import bookList from './book-list.vue'
 import { formatDate } from 'util/date-util.js';
+import { getBook } from 'service/book-service';
 export default {
     name: 'book-info',
     data() {
         return {
+            id: 0,
             book: {
-                id:0,
-                imgUrl:"http://img3m2.ddimg.cn/30/4/23941002-3_w_2.jpg",
-                name:"三国演义",
-                categoryName:"名著",
-                author:"(明)罗贯中",
-                publisher:"安徽教育出版社",
-                description:"《三国演义》全称《三国志通俗演义》，是中国古代第一部长篇章回小说，为四大名著之一，是历史演义小说的经典之作。"+
-　　"它描写了从东汉末年到西晋初年之间近105年的历史风云，以描写战争为主，反映了东汉末年的群雄割据混战和魏、蜀、吴三国之间的政治和军事斗争，反映了三国时代各类社会斗争与矛盾的转化，概括了这一时代的历史巨变，塑造了一批叱咤风云的三国英雄人物，在广阔的背景上，上演了一幕幕气势磅礴的战争场面。"+
-　　"《三国演义》的内涵是十分丰富的，囊括了中国古代政治、外交、兵法、权谋、道德观念、哲学、思想等方方面面的内容。书中描写的四十多次战争，不仅场面雄伟壮阔，引人入胜，而且为后人提供了各种军事知识和战争经验。据说，《三国演义》成书以后，很快就被农民起义军的将领们视为军事教科书。"+
-　　"《三国演义》现存最早的版本，是明嘉靖年间刊刻的，俗称“嘉靖本”。清康熙年间，毛纶、毛宗岗父子对旧版本进行辨析、增删、评点，修改成如今通行的一百二十回本。我们这个精缩本，就是以通行本为基础编写的。",
-                publishTime:"2016年04月",
-                total:10,
-                borrowed:5,
+                id: undefined,
+                name: '',
+                category: -1,
+                categoryName: '',
+                author: '',
+                translator: '',
+                publisher: '',
+                description: '',
+                publishTime: '',
+                total: 0,
+                borrowed: 0,
+                imgUrl: '/assets/img/two_cat.jpg'
             }
         }
     },
     created() {
-
+        if(this.$route.query.id){
+            this.id=this.$route.query.id;
+            this.search();
+        }
     },
     filters: {
         formatDate(time) {
@@ -56,8 +69,19 @@ export default {
         }
     },
     methods: {
+        addToCart() {
 
-    }
+        },
+        async search() {
+            let res= await getBook(this.id);
+            if(res.status ==200){
+                this.book =res.data;
+            }
+        }
+    },
+    components:{
+        bookList,
+    },
 }
 </script>
 
@@ -68,6 +92,7 @@ export default {
     margin: 0 auto;
     padding: 30px 8%;
     display: table;
+    min-height: 900px;
 }
 .book-left{
     float: left;
@@ -123,9 +148,14 @@ export default {
     font: 12px "Verdana","Simsun";
     color: #646464;
 }
-.message .t1{
+.t1{
     display: inline-block;
     padding-right: 25px;
+    font-size: 1.2em;
     /* padding-bottom: 25px; */
+}
+.book-container{
+    margin-bottom: 20px;
+    display: table;
 }
 </style>

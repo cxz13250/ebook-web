@@ -68,6 +68,9 @@ export default {
 }
 .item-content{
     padding: 12px 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .item-label{
     position: absolute;

@@ -14,99 +14,13 @@ export default {
     data() {
         return {
             books: [
-                {
-                    id: 1,
-                    name: '三国演义',
-                    author: '罗贯中',
-                    number: 'ECS12124',
-                    time: '2011-01-01',
-                    recent: 10,
-                    imgUrl: 'http://img3m8.ddimg.cn/42/10/25228608-1_w_20.jpg'
-                },
-                {
-                    id: 2,
-                    name: '三国演义',
-                    author: '罗贯中',
-                    number: 'ECS12124',
-                    time: '2011-01-01',
-                    recent: 10,
-                    imgUrl: 'http://img3m8.ddimg.cn/42/10/25228608-1_w_20.jpg'
-                },
-                {
-                    id: 3,
-                    name: '三国演义',
-                    author: '罗贯中',
-                    number: 'ECS12124',
-                    time: '2011-01-01',
-                    recent: 10,
-                    imgUrl: 'http://img3m8.ddimg.cn/42/10/25228608-1_w_20.jpg'
-                },{
-                    id: 4,
-                    name: '三国演义',
-                    author: '罗贯中',
-                    number: 'ECS12124',
-                    time: '2011-01-01',
-                    recent: 10,
-                    imgUrl: 'http://img3m8.ddimg.cn/42/10/25228608-1_w_20.jpg'
-                },
-                {
-                    id: 5,
-                    name: '三国演义',
-                    author: '罗贯中',
-                    number: 'ECS12124',
-                    time: '2011-01-01',
-                    recent: 10,
-                    imgUrl: 'http://img3m8.ddimg.cn/42/10/25228608-1_w_20.jpg'
-                },
-                {
-                    id: 6,
-                    name: '三国演义',
-                    author: '罗贯中',
-                    number: 'ECS12124',
-                    time: '2011-01-01',
-                    recent: 10,
-                    imgUrl: 'http://img3m8.ddimg.cn/42/10/25228608-1_w_20.jpg'
-                },
-                {
-                    id: 7,
-                    name: '三国演义',
-                    author: '罗贯中',
-                    number: 'ECS12124',
-                    time: '2011-01-01',
-                    recent: 10,
-                    imgUrl: 'http://img3m8.ddimg.cn/42/10/25228608-1_w_20.jpg'
-                },
-                {
-                    id: 8,
-                    name: '三国演义',
-                    author: '罗贯中',
-                    number: 'ECS12124',
-                    time: '2011-01-01',
-                    recent: 10,
-                    imgUrl: 'http://img3m8.ddimg.cn/42/10/25228608-1_w_20.jpg'
-                },{
-                    id: 9,
-                    name: '三国演义',
-                    author: '罗贯中',
-                    number: 'ECS12124',
-                    time: '2011-01-01',
-                    recent: 10,
-                    imgUrl: 'http://img3m8.ddimg.cn/42/10/25228608-1_w_20.jpg'
-                },
-                {
-                    id: 10,
-                    name: '三国演义',
-                    author: '罗贯中',
-                    number: 'ECS12124',
-                    time: '2011-01-01',
-                    recent: 10,
-                    imgUrl: 'http://img3m8.ddimg.cn/42/10/25228608-1_w_20.jpg'
-                }
-            ]
+            ],
+            page:1,
+            rows:10
         }
     },
     created() {
-        // this.search();
+        this.search();
     },
     methods: {
         async search() {
@@ -118,6 +32,12 @@ export default {
     },
     components:{
         bookItem
+    },
+    props: {
+        num: {
+            default:20,
+            required:false
+        }
     }
 }
 </script>
