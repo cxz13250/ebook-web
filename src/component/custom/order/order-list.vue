@@ -10,7 +10,7 @@
       </div>
       <div class="my-order">
           <div class="my-order-list">
-              <ul style="margin-left:0px">
+              <ul style="margin-left:0px;padding-left:0px">
                   <li v-for="order in orders" :key="order.id">
                       <p class="my-order-info">
                           <span>{{order.createTime | formatDate}}</span>
@@ -29,7 +29,8 @@
                                   </div>
                               </dd>
                               <div class="book-action l">
-                                  <a href="javascript:void(0);" class="return-now">立即归还</a>
+                                  <a href="javascript:void(0);" class="return-now" v-if="order.status==0" @click="returnNow(order)">立即归还</a>
+                                  <span></span>
                               </div>
                           </dl>
                       </div>
@@ -41,6 +42,7 @@
 </template>
 
 <script>
+import { getOrders, updateOrder } from 'service/order-service';
 import { formatDate } from 'util/date-util.js';
 export default {
     name: 'order-list',
@@ -57,7 +59,7 @@ export default {
                     bookId:4,
                     bookName:"三国演义",
                     description:"偶的个神啊",
-                    allReturned: true
+                    status: 0,
                 },
                 {
                     id:2,
@@ -66,7 +68,7 @@ export default {
                     url:"http://img3m4.ddimg.cn/9/20/23578344-1_w_1.jpg",
                     bookName:"三国演义",
                     description:"偶的个神啊",
-                    allReturned: true
+                    status: 1
                 }
             ]
         }
@@ -76,7 +78,6 @@ export default {
     },
     methods:{
         change(event){
-            console.log(event);
             event.target.style.background="red"
         },
         transform(s){
@@ -92,6 +93,18 @@ export default {
                 this.isA=false;
                 this.isB=false;
                 this.isC=true;
+            }
+        },
+        async getOrders(){
+            let res= await getOrders();
+            if(res.status==200){
+                this.orders=res.data;
+            }
+        },
+        async returnNow(order){
+            let res= await updateOrder(order);
+            if(res==200){
+                order.status==1;
             }
         }
     },

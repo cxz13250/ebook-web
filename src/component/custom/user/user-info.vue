@@ -3,7 +3,7 @@
         <div class="info-left">
             <div class="avator-wapper">
                 <div class="avator-mode">
-                    <img class="avator-img" src="assets/img/two_cat.jpg">
+                    <img class="avator-img" v-bind:src="user.imgUrl">
                     <div class="change-avator">
                         <p>
                             <a role="button" style="color: inherit;cursor:default">更换头像</a>
@@ -49,13 +49,14 @@
                         <div class="center">
                             <p>
                                 <span class="font1">邮箱</span>
+                                <span class="font4">{{user.email}}</span>
                             </p>
                             <p class="font">
                                 可用邮箱加密码登录本系统，可用邮箱找回密码
                             </p>
                         </div>
                         <div class="right">
-                            <a href="javascript:void(0);" class="moco-btn moco-btn-normal" @click="editEmail">更改</a>
+                            <a href="javascript:void(0);" class="moco-btn moco-btn-normal" @click="edit('email')">更改</a>
                         </div>
                     </div>
                     <div class="itemBox">
@@ -65,13 +66,14 @@
                         <div class="center">
                             <p>
                                 <span class="font1">手机</span>
+                                <span class="font4">{{user.mobile}}</span>
                             </p>
                             <p class="font">
                                 可用手机号加密码登录本系统，可通过手机号找回密码
                             </p>
                         </div>
                         <div class="right">
-                            <a href="javascript:void(0);" class="moco-btn moco-btn-normal">更改</a>
+                            <a href="javascript:void(0);" class="moco-btn moco-btn-normal" @click="edit('mobile')">更改</a>
                         </div>
                     </div>
                     <div class="itemBox">
@@ -81,13 +83,14 @@
                         <div class="center">
                             <p>
                                 <span class="font1">密码</span>
+                                <span class="font4">已设置</span>
                             </p>
                             <p class="font">
                                 用于保护账号信息和登录安全
                             </p>
                         </div>
                         <div class="right">
-                            <a href="javascript:void(0);" class="moco-btn moco-btn-normal">更改</a>
+                            <a href="javascript:void(0);" class="moco-btn moco-btn-normal" @click="edit('password')">更改</a>
                         </div>
                     </div>
                 </div>
@@ -99,13 +102,64 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top:-12px"><span
-          @click="cancel">&times;</span></button>
+          @click="cancel('email')">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">修改邮箱</h4>
                     </div>
-                    <div class="modal-body"></div>
+                    <div class="modal-body clearfix">
+                        <div class="form-group">
+                            <label class="control-label col-md-2" for="emailInput" style="padding-top:7px">邮箱地址</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" v-model="user.email" id="emailInput" name="emailInput">
+                            </div>
+                        </div>
+                    </div>
                     <div class="modal-footer">
                         <button class="moco-btn moco-btn-blue" @click="updateUser('email')">确定</button>
-                        <button class="moco-btn moco-btn-normal" @click="cancel">取消</button>
+                        <button class="moco-btn moco-btn-normal" @click="cancel('email')">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="mobile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top:-12px"><span
+          @click="cancel('mobile')">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">修改手机</h4>
+                    </div>
+                    <div class="modal-body clearfix">
+                        <label class="control-label col-md-2" for="mobileInput" style="padding-top:7px">手机号码</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" v-model="user.mobile" id="mobileInput" name="mobileInput">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="moco-btn moco-btn-blue" @click="updateUser('mobile')">确定</button>
+                        <button class="moco-btn moco-btn-normal" @click="cancel('mobile')">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="password" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top:-12px"><span
+          @click="cancel('password')">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">修改密码</h4>
+                    </div>
+                    <div class="modal-body clearfix">
+                        <label class="control-label col-md-2" for="passwordInput" style="padding-top:7px">新密码</label>
+                        <div class="col-sm-6">
+                            <input type="password" class="form-control" v-model="user.password" id="passwordInput" name="passwordInput">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="moco-btn moco-btn-blue" @click="updateUser('password')">确定</button>
+                        <button class="moco-btn moco-btn-normal" @click="cancel('password')">取消</button>
                     </div>
                 </div>
             </div>
@@ -141,15 +195,15 @@ export default {
         showOperation() {
             
         },
-        editEmail() {
-            $('#email').modal('show');
+        edit(label) {
+            $('#'+label).modal('show');
         },
-        cancel(){
-            $('#email').modal('hide');
+        cancel(label){
+            $('#'+label).modal('hide');
         },
         async updateUser(label){
             console.log(label);
-            let res = updateUser(this.user);
+            let res = await updateUser(this.user);
             if(res.status==200){
                 $('#'+label).modal('hide');
             }
@@ -320,6 +374,10 @@ export default {
 }
 .font2{
     color: #93999f;
+    font-size: 14px;
+}
+.font4{
+    color: #f01414;
     font-size: 14px;
 }
 .moco-btn-normal{

@@ -7,6 +7,15 @@ export const getBooks = (page, rows) =>{
     })
 }
 
+export const getBooksByCategory = (id) =>{
+    return fetch('/api/books/'+id,{
+        method: 'GET',
+        credentials: 'same-origin'
+    }).then(function(res) {
+        return res.json();
+    })
+}
+
 export const getBook = (id) =>{
     return fetch('/api/book?bookId='+id,{
         method: 'GET',

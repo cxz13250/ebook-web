@@ -17,8 +17,8 @@
           </ul>
           <div class="search-wrap">
               <div class="searchTags" v-if="showTag">
-                  <router-link to="/custom/books">科技</router-link>
-                  <router-link to="/custom/books">文学</router-link>
+                  <router-link :to="{path:'/custom/books',query:{cate:7}}">科技</router-link>
+                  <router-link :to="{path:'/custom/books',query:{cate:3}}">文学</router-link>
               </div>
               <div class="search-area">
                   <input type="text" class="search-input" @blur="setTags" @focus="setTags" v-bind="keyword"/>
@@ -44,7 +44,7 @@
                   </li>
                   <li class="user-head" v-if="!showLogin">
                       <router-link class="header-avator" to="/custom/user">
-                      <img class="userImg" src="assets/img/two_cat.jpg"/>
+                      <img class="userImg" v-bind:src="user.imgUrl"/>
                       </router-link>
                   </li>
                   <li class="header-signin" v-if="showLogin">

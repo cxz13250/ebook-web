@@ -8,7 +8,7 @@
 
 <script>
 import bookItem from './book-item.vue';
-import { getBooks } from 'service/book-service';
+import { getBooks ,getBooksByCategory } from 'service/book-service';
 export default {
     name: 'book-list-custom',
     data() {
@@ -20,7 +20,11 @@ export default {
         }
     },
     created() {
-        this.search();
+        if(this.$route.query.cate){
+            this.searchByCategory(this.$route.query.cate);
+        }else{
+            this.search();
+        }
     },
     methods: {
         async search() {
@@ -29,6 +33,12 @@ export default {
                 this.books = res.data.list; 
             }
         },
+        async searchByCategory(id){
+            let res = await getBooksByCategory(id);
+            if(res.status == 200){
+                this.books = res.data.list; 
+            }
+        }
     },
     components:{
         bookItem
