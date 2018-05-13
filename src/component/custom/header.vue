@@ -1,5 +1,5 @@
 <template>
-  <div id="header" style="background: #07111b;">
+  <div id="header" class="clearfix" style="background: #07111b;">
       <div class="head-container" id="nav">
           <div class="logo">
               <router-link class="logo-a" to="/custom/main">
@@ -46,6 +46,17 @@
                       <router-link class="header-avator" to="/custom/user">
                       <img class="userImg" src="assets/img/two_cat.jpg"/>
                       </router-link>
+                      <div class="user-modal">
+                          <div class="user-modal-header">
+                              <img class="user-modal-img" src="assets/img/two_cat.jpg"/>
+                              <div>
+                                  <label style="margin-top: 10px">{{user.name}}</label>
+                              </div>
+                          </div>
+                          <div class="user-modal-footer">
+                              <a role="button">安全退出</a>
+                          </div>
+                      </div>
                   </li>
                   <li class="header-signin" v-if="showLogin">
                       <router-link to="/login" class="signin">登录</router-link>/
@@ -100,7 +111,6 @@ export default {
     position: relative;
     z-index: 88;
     background-color: #07111b;
-    overflow: hidden;
 }
 .head-container a:hover{
     color: #fff;
@@ -134,7 +144,7 @@ export default {
     position: relative;
     font-size: 14px;
     font-weight: 400;
-    top:-10px;
+    /*top:-10px;*/
 }
 .header-unlogin{
     margin-bottom: 0px;
@@ -196,7 +206,7 @@ export default {
     position: relative;
     margin-left: 24px;
     color: #fff;
-    top:-10px;
+    /*top:-10px;*/
 }
 .searchTags{
     position: absolute;
@@ -330,11 +340,56 @@ export default {
     position: relative;
 }
 
+.user-head:hover .user-modal {
+    display: block;
+}
+
 .user-modal {
     position: absolute;
     top: 100%;
     right: 0;
-    z-index: 1080;
+    z-index: 1050;
+    display: none;
+    background-color: #ffffff;
+    color: #0c0c0c;
+    box-shadow:0 6px 12px rgba(0,0,0,.175);
+    border:1px solid #ccc;
+    border-radius:4px;
+    width:200px;
+}
+
+.user-modal-header {
+    padding: 15px;
+    font-size: 14px;
+    color: #373d41
+    /*border-bottom: 1px solid #e5e5e5;*/
+}
+
+.user-modal-header > div {
+    vertical-align: top;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.user-modal-footer {
+    padding: 15px;
+    border-top: 1px solid #e5e5e5;
+    text-align: left;
+    vertical-align: middle;
+    color: #73777a !important;
+    font-size: 12px;
+}
+
+.user-modal-footer a:hover {
+    color: #00c0ef;
+}
+
+.user-modal-img {
+    width: 60px;
+    height: 60px;
+    border-color: #4d5559;
+    border-radius: 50%;
+    display: inline-block;
 }
 
 .header-avator{
