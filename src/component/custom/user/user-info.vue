@@ -6,7 +6,7 @@
                     <img class="avator-img" v-bind:src="user.imgUrl">
                     <div class="change-avator">
                         <p>
-                            <a role="button" style="color: inherit;cursor:default">更换头像</a>
+                            <a role="button" style="color: inherit;cursor:default" @click="edit('img')">更换头像</a>
                         </p>
                     </div>
                 </div>
@@ -164,11 +164,37 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="img" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top:-12px"><span
+          @click="cancel('img')">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">修改头像</h4>
+                    </div>
+                    <div class="modal-body clearfix">
+                        <div class="avator-mode">
+                            <img class="" v-bind:src="user.imgUrl" width="192px" height="192px">
+                        </div>
+                        <div class="clearfix" style="text-align:center">
+                            <a class="to-upload" href="javascript:void(0)" @click="chooseFile">上传头像</a>
+                            <input id="imageFile" type="file" style="display:none" v-on:change="uploadFile"/>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="moco-btn moco-btn-blue" @click="updateUser('img')">确定</button>
+                        <button class="moco-btn moco-btn-normal" @click="cancel('img')">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
 import { getUser,updateUser } from 'service/user-service';
+import { uploadFile } from 'service/common-service';
 export default {
     name: 'user-info',
     data() {
@@ -206,8 +232,29 @@ export default {
             let res = await updateUser(this.user);
             if(res.status==200){
                 $('#'+label).modal('hide');
+                window.localStorage.setItem('user',JSON.stringify(this.user));
             }
-        }
+        },
+        chooseFile() {
+            $('#imageFile').click();
+        },
+        filterType(filename) {
+            if(filename.endsWith('.jpg')||filename.endsWith('.png')||filename.endsWith('.jpeg')){
+                return true;
+            }else {
+                return false;
+            }
+        },
+        async uploadFile(){
+            var file = $('#imageFile')[0].files[0];
+            if(this.filterType(file.name)){
+                let res = await uploadFile(file,'img/'+this.user.id);
+                if(res.status == 200){
+                    this.user.imgUrl = res.data+"?t"+new Date().getTime();
+                    console.log(this.user.imgUrl);
+                }
+            }
+        },
     },
     components: {
 
@@ -224,7 +271,7 @@ export default {
     display: table;
 }
 .info-left{
-    width: 216px;
+    width: 20%;
     background-color: #f8fafc;
     float: left;
 }
@@ -281,7 +328,7 @@ export default {
 .info-right{
     float: left;
     margin-left: 48px;
-    width: 936px;
+    width: 70%;
     box-sizing: border-box;
     background-color: #fff;
 }
@@ -454,5 +501,19 @@ export default {
 }
 .modal-content{
     border-radius: 6px;
+}
+.modal-body .avator-mode{
+    width: 192px;
+    height: 192px;
+    background-color: #d9dde1;
+    text-align: center;
+    margin: 0 auto 30px;
+    border: 4px solid #d9dde1;
+    border-radius: 96px;
+    overflow: hidden;
+}
+.to-upload{
+    cursor: pointer;
+    color: #337ab7;
 }
 </style>

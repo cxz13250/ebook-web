@@ -272,7 +272,6 @@ export default {
                 if(res.status == 200){
                     this.book.imgUrl = res.data;
                     console.log(this.book.imgUrl);
-                    show_stack_topleft('success','上传成功');
                 }
             }
         },

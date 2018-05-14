@@ -17,6 +17,7 @@ import bookInfoCustom from 'custom/book/book-info';
 import userInfo from 'custom/user/user-info';
 import mainPage from 'custom/main-page';
 import orderListCustom from 'custom/order/order-list';
+import orderOrderCustom from 'custom/order/order-info';
 import Router from 'vue-router';
 import app from '../app.vue';
 
@@ -45,7 +46,8 @@ export default new Router({
                 { path: 'books' ,component: bookListCustom },
                 { path: 'user' ,component: userInfo },
                 { path: 'orders' ,component: orderListCustom },
-                { path: 'book', component: bookInfoCustom }
+                { path: 'book', component: bookInfoCustom },
+                { path: 'order', component: orderOrderCustom }
             ] },
         ]},
     ]

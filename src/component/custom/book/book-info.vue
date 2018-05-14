@@ -22,13 +22,13 @@
                 <div class="line"></div>
                 <h2>{{book.description}}</h2>
                 <div class="line"></div>
-                <a class="btn btn-primary" @click="addToCart" style="margin-top:20px;">立刻借阅</a>
-                <span class="t1">剩余库存:{{book.total-book.borrowed}}/{{book.total}}</span>
+                <a class="btn btn-primary" @click="addToCart" style="margin-top:15px;" v-if="book.borrowed<book.total">立刻借阅</a>
+                <span class="t1" style="margin-top:5px">剩余库存:{{book.total-book.borrowed}}/{{book.total}}</span>
             </div>
         </div>
       </div>
       <div class="line clear-fix"></div>  
-      <bookList :num="5"></bookList>
+      <bookList :num="8"></bookList>
   </div>
 </template>
 
@@ -70,7 +70,7 @@ export default {
     },
     methods: {
         addToCart() {
-
+            this.$router.push({path:'/custom/order',query:{id:this.book.id}});
         },
         async search() {
             let res= await getBook(this.id);
@@ -121,7 +121,7 @@ export default {
 }
 .book-info{
     float: left;
-    width: 860px;
+    width: 850px;
     font: 12px "Verdana","Simsun";
     color: #646464;
     padding-left: 20px;

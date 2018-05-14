@@ -31,30 +31,32 @@
           </div>
           <div class="login-area">
               <ul class="header-unlogin clearfix">
-                  <li class="shop-cart">
+                  <!-- <li class="shop-cart">
                       <a class="shop-cart-icon pointer">
                            <span class="glyphicon glyphicon-shopping-cart">
                            </span>
                            <span>购物车</span>
                            <span class="shop-icon"></span>
                       </a>
-                  </li>
+                  </li> -->
                   <li class="remind_warp" v-if="!showLogin">
                       <router-link to="/custom" class="remind-a"><i class="fa fa-bell"></i></router-link>
                   </li>
                   <li class="user-head" v-if="!showLogin">
                       <router-link class="header-avator" to="/custom/user">
-                      <img class="userImg" v-bind:src="user.imgUrl"/>
+                      <img class="userImg" v-bind:src="user.imgUrl+'?t='+new Date().getTime()"/>
                       </router-link>
                       <div class="user-modal">
                           <div class="user-modal-header">
-                              <img class="user-modal-img" src="assets/img/two_cat.jpg"/>
+                              <router-link to="/custom/user">
+                                  <img class="user-modal-img" v-bind:src="user.imgUrl+'?t='+new Date().getTime()"/>
+                              </router-link>
                               <div>
                                   <label style="margin-top: 10px">{{user.name}}</label>
                               </div>
                           </div>
                           <div class="user-modal-footer">
-                              <a role="button">安全退出</a>
+                              <a role="button" @click="logout">安全退出</a>
                           </div>
                       </div>
                   </li>
@@ -69,7 +71,7 @@
 </template>
 
 <script>
-import { getUser } from 'service/user-service';
+import { getUser, loginout } from 'service/user-service';
 export default {
     name: 'custom-head',
     data() {
@@ -95,6 +97,13 @@ export default {
         },
         search() {
             this.$router.push({path: '/custom/books',query:{keyword:this.keyword}});
+        },
+        async logout() {
+            let res=await loginout();
+            if(res.status == 200){
+                window.localStorage.removeItem('user');
+                this.$router.push('/login');
+            }
         }
     }
 }

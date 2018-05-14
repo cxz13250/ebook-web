@@ -28,7 +28,7 @@ export default {
     },
     methods: {
         async search() {
-            let res = await getBooks(this.page,this.rows);
+            let res = await getBooks(this.page,this.num);
             if(res.status == 200){
                 this.books = res.data.list; 
             }

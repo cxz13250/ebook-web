@@ -9,8 +9,17 @@
           </ul>
       </div>
       <div class="my-order">
+          <div class="no-list" v-if="orders.length==0&&isA">
+              暂无任何借阅记录
+          </div>
+          <div class="no-list" v-if="ordersB.length==0&&isB">
+              暂无任何未归还书籍
+          </div>
+          <div class="no-list" v-if="ordersC.length==0&&isC">
+              暂无任何已归还书籍
+          </div>
           <div class="my-order-list">
-              <ul style="margin-left:0px;padding-left:0px">
+              <ul v-if="isA" style="margin-left:0px;padding-left:0px">
                   <li v-for="order in orders" :key="order.id">
                       <p class="my-order-info">
                           <span>{{order.createTime | formatDate}}</span>
@@ -18,19 +27,74 @@
                       <div class="my-order-item">
                           <dl class="item-del">
                               <dd class="clearfix">
-                                  <router-link :to="{path:'/custom/book',query:{id:order.bookId}}">
-                                    <img class="l" v-bind:src="order.url" width="160" height="140">
+                                  <router-link :to="{path:'/custom/book',query:{id:order.itemVOS[0].vo.id}}">
+                                    <img class="l" v-bind:src="order.itemVOS[0].vo.imgUrl" width="160" height="140">
                                   </router-link>
                                   <div class="del-box l">
-                                      <router-link :to="{path:'/custom/book',query:{id:order.bookId}}">
-                                        <p class="book-name">{{order.bookName}}</p>
+                                      <router-link :to="{path:'/custom/book',query:{id:order.itemVOS[0].vo.id}}">
+                                        <p class="book-name">{{order.itemVOS[0].vo.bookName}}</p>
                                       </router-link>
-                                      <p class="book-desc">{{order.description}}</p>
+                                      <p class="book-desc">{{order.itemVOS[0].vo.description}}</p>
                                   </div>
                               </dd>
                               <div class="book-action l">
                                   <a href="javascript:void(0);" class="return-now" v-if="order.status==0" @click="returnNow(order)">立即归还</a>
-                                  <span></span>
+                                  <p v-if="order.status==1" class="order-close">已归还</p>
+                                  <p v-if="order.status==-1" class="order-close">已超期</p>
+                              </div>
+                          </dl>
+                      </div>
+                  </li>
+                </ul>
+                <ul v-if="isB" style="margin-left:0px;padding-left:0px">
+                  <li v-for="order in ordersB" :key="order.id">
+                      <p class="my-order-info">
+                          <span>{{order.createTime | formatDate}}</span>
+                      </p>
+                      <div class="my-order-item">
+                          <dl class="item-del">
+                              <dd class="clearfix">
+                                  <router-link :to="{path:'/custom/book',query:{id:order.itemVOS[0].vo.id}}">
+                                    <img class="l" v-bind:src="order.itemVOS[0].vo.imgUrl" width="160" height="140">
+                                  </router-link>
+                                  <div class="del-box l">
+                                      <router-link :to="{path:'/custom/book',query:{id:order.itemVOS[0].vo.id}}">
+                                        <p class="book-name">{{order.itemVOS[0].vo.bookName}}</p>
+                                      </router-link>
+                                      <p class="book-desc">{{order.itemVOS[0].vo.description}}</p>
+                                  </div>
+                              </dd>
+                              <div class="book-action l">
+                                  <a href="javascript:void(0);" class="return-now" v-if="order.status==0" @click="returnNow(order)">立即归还</a>
+                                  <p v-if="order.status==1" class="order-close">已归还</p>
+                                  <p v-if="order.status==-1" class="order-close">已超期</p>
+                              </div>
+                          </dl>
+                      </div>
+                  </li>
+              </ul>
+              <ul v-if="isC" style="margin-left:0px;padding-left:0px">
+                  <li v-for="order in ordersC" :key="order.id">
+                      <p class="my-order-info">
+                          <span>{{order.createTime | formatDate}}</span>
+                      </p>
+                      <div class="my-order-item">
+                          <dl class="item-del">
+                              <dd class="clearfix">
+                                  <router-link :to="{path:'/custom/book',query:{id:order.bookId}}">
+                                    <img class="l" v-bind:src="order.itemVOS[0].vo.imgUrl" width="160" height="140">
+                                  </router-link>
+                                  <div class="del-box l">
+                                      <router-link :to="{path:'/custom/book',query:{id:order.bookId}}">
+                                        <p class="book-name">{{order.itemVOS[0].vo.bookName}}</p>
+                                      </router-link>
+                                      <p class="book-desc">{{order.itemVOS[0].vo.description}}</p>
+                                  </div>
+                              </dd>
+                              <div class="book-action l">
+                                  <a href="javascript:void(0);" class="return-now" v-if="order.status==0" @click="returnNow(order)">立即归还</a>
+                                  <p v-if="order.status==1" class="order-close">已归还</p>
+                                  <p v-if="order.status==-1" class="order-close">已超期</p>
                               </div>
                           </dl>
                       </div>
@@ -48,33 +112,20 @@ export default {
     name: 'order-list',
     data() {
         return {
+            page: 1,
+            rows: 10,
             isA:true,
             isB:false,
             isC:false,
             orders:[
-                {
-                    id:1,
-                    createTime:1526125801000,
-                    url:"http://img3m4.ddimg.cn/9/20/23578344-1_w_1.jpg",
-                    bookId:4,
-                    bookName:"三国演义",
-                    description:"偶的个神啊",
-                    status: 0,
-                },
-                {
-                    id:2,
-                    createTime:1526125801000,
-                    bookId:4,
-                    url:"http://img3m4.ddimg.cn/9/20/23578344-1_w_1.jpg",
-                    bookName:"三国演义",
-                    description:"偶的个神啊",
-                    status: 1
-                }
-            ]
+                
+            ],
+            ordersB:[],
+            ordersC:[],
         }
     },
     created() {
-
+        this.getOrders();
     },
     methods:{
         change(event){
@@ -96,12 +147,20 @@ export default {
             }
         },
         async getOrders(){
-            let res= await getOrders();
+            let res= await getOrders(this.page,this.rows);
             if(res.status==200){
-                this.orders=res.data;
+                this.orders=res.data.list;
+                this.orders.forEach(o=>{
+                    if(o.status==1){
+                        this.ordersC.push(o);
+                    }else{
+                        this.ordersB.push(o);
+                    }
+                })
             }
         },
         async returnNow(order){
+            order.status=1;
             let res= await updateOrder(order);
             if(res==200){
                 order.status==1;
@@ -120,6 +179,7 @@ export default {
 .order-container{
     margin: 36px auto;
     width: 992px;
+    min-height: 530px;
 }
 .order-title{
     margin-bottom: 24px;
@@ -246,8 +306,24 @@ export default {
     width: 120px;
     height: 36px;
     color: #fff;
-    background: rgba(240, 20, 20, 0.8);
+    background: rgba(20, 152, 240, 0.8);
     border-radius: 18px;
     line-height: 36px;
+}
+.order-close{
+    color: #93999f;
+    margin-top: 36px;
+    line-height: 14px;
+}
+.no-list{
+    width: 100%;
+    padding: 96px 0px 0px;
+    height: 360px;
+    text-align: center;
+    background: #fff;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #93999F;
+    line-height: 24px;
 }
 </style>
