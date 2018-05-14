@@ -60,7 +60,7 @@ export default {
           if(this.user.roleId == 1){
             this.$router.push({path: '/admin'})
           }else if(this.user.roleId == 2){
-            this.$router.push({path: '/custom'})
+            this.$router.push({path: '/'})
           }
         }else{
           alert('密码错误');

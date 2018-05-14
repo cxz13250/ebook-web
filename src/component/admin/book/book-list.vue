@@ -41,7 +41,7 @@
                                     <table class="table table-bordered table-striped dataTable" id="bookTable">
                                         <thead>
                                             <tr role="row">
-                                                <th>书名</th>
+                                                <th width="20%" style="overflow: hidden;text-overflow: ellipsis;">书名</th>
                                                 <th>作者</th>
                                                 <th>出版社</th>
                                                 <th>出版时间</th>
@@ -83,7 +83,7 @@ export default {
         return {
             keyword: '',
             page: 1,
-            rows: 10,
+            rows: 20,
             books: [
                 {
                     id: 1,

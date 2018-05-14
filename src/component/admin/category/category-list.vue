@@ -73,7 +73,7 @@ export default {
         return {
             keyword: '',
             page: 1,
-            rows: 10,
+            rows: 20,
             categories: [
                 {
                     id: 1,

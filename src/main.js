@@ -43,7 +43,8 @@ Vue.http.interceptors.push((request, next) => {
 
 
 router.beforeEach((to,from,next) => {
-    if(to.path == '/login' || to.path == '/register' || to.path.indexOf('/custom')>-1) {
+    console.log(to.path);
+    if(to.path == '/login' || to.path == '/register' || to.path.indexOf('/custom/book')>-1 || to.path=='/') {
         next()
     }
     else if(!window.localStorage.getItem('user')){

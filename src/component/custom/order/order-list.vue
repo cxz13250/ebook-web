@@ -163,7 +163,7 @@ export default {
             order.status=1;
             let res= await updateOrder(order);
             if(res==200){
-                order.status==1;
+                this.$route.push('/custom/orders');
             }
         }
     },

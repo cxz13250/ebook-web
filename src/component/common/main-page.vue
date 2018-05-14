@@ -1,17 +1,20 @@
 <template>
   <div>
+      <customHeader></customHeader>
       <customCurtain></customCurtain>
       <categoryNav></categoryNav>
-      <bookList></bookList>
+      <bookList :num="10"></bookList>
+      <efooter></efooter>
   </div>
 </template>
 <script>
-import customCurtain from './curtain.vue';
-import customHeader from './header.vue';
-import categoryNav from './category-menu.vue';
+import customCurtain from 'custom/curtain.vue';
+import customHeader from 'custom/header.vue';
+import categoryNav from 'custom/category-menu.vue';
 import bookList from 'custom/book/book-list';
+import efooter from 'custom/footer.vue';
 export default {
-    name: '',
+    name: 'common-main',
     data() {
         return {
 
@@ -21,7 +24,8 @@ export default {
         customHeader,
         customCurtain,
         bookList,
-        categoryNav
+        categoryNav,
+        efooter
     }
 }
 </script>

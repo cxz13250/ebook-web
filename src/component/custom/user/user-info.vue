@@ -250,7 +250,7 @@ export default {
             if(this.filterType(file.name)){
                 let res = await uploadFile(file,'img/'+this.user.id);
                 if(res.status == 200){
-                    this.user.imgUrl = res.data+"?t"+new Date().getTime();
+                    this.user.imgUrl = res.data+"?t="+new Date().getTime();
                     console.log(this.user.imgUrl);
                 }
             }

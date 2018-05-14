@@ -111,13 +111,13 @@ export default {
                 return;
             }
             let res;
-            if(this.category,id){
+            if(this.category.id){
                 res = await updateCategory(this.category);
             }else{
                 res = await createCategory(this.category);
             }
             if(res.status == 200){
-                this.$router.push({path:'/categories'});
+                this.$router.push({path:'/admin/categories'});
             }
         },
         checkName() {

@@ -1,5 +1,5 @@
-export const getBooks = (page, rows) =>{
-    return fetch('/api/books?page='+page+'&rows='+rows,{
+export const getBooks = (page, rows, keyword) =>{
+    return fetch('/api/books?page='+page+'&rows='+rows+'&keyword='+keyword,{
         method: 'GET',
         credentials: 'same-origin'
     }).then(function(res) {
@@ -9,6 +9,15 @@ export const getBooks = (page, rows) =>{
 
 export const getBooksByCategory = (id) =>{
     return fetch('/api/books/'+id,{
+        method: 'GET',
+        credentials: 'same-origin'
+    }).then(function(res) {
+        return res.json();
+    })
+}
+
+export const getBooksByMenu = (menu) =>{
+    return fetch('/api/books/category?menu='+menu,{
         method: 'GET',
         credentials: 'same-origin'
     }).then(function(res) {

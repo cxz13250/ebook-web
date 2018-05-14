@@ -247,7 +247,7 @@ export default {
             }
         },
         async getCategories() {
-            let res = await getCategories(1,10);
+            let res = await getCategories(1,30);
             if(res.status == 200){
                 this.categories = res.data.list;
             }

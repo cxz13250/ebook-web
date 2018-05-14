@@ -1,7 +1,7 @@
 <template>
     <div class="category-nav">
         <div>
-            <router-link :to="{path:'/custom/books',query:{cate:cate.id}}" v-for="cate in categories" :key="cate.id">{{cate.menu}}</router-link>
+            <router-link :to="{path:'/custom/books',query:{cate:cate.menu}}" v-for="cate in categories" :key="cate.id">{{cate.menu}}</router-link>
         </div>
     </div>
 </template>

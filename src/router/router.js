@@ -15,7 +15,7 @@ import operations from 'admin/operation-list';
 import bookListCustom from 'custom/book/book-list';
 import bookInfoCustom from 'custom/book/book-info';
 import userInfo from 'custom/user/user-info';
-import mainPage from 'custom/main-page';
+import mainPage from 'common/main-page';
 import orderListCustom from 'custom/order/order-list';
 import orderOrderCustom from 'custom/order/order-info';
 import Router from 'vue-router';
@@ -26,7 +26,7 @@ export default new Router({
     mode: 'hash',
     routes: [
         { path: '/' ,component: app ,children:[
-            { path: '' ,component: login },
+            { path: '' ,component: mainPage },
             { path: '/login' ,component: login },
             { path: '/register' ,component: register },
             { path: '/admin' ,component: admin, children:[
@@ -41,8 +41,8 @@ export default new Router({
                 { path: 'order' ,component: orderDetail },
             ] },
             { path: '/custom' ,component: custom, children:[
-                { path: '', component: mainPage },
-                { path: 'main', component: mainPage },
+                // { path: '', component: mainPage },
+                // { path: 'main', component: mainPage },
                 { path: 'books' ,component: bookListCustom },
                 { path: 'user' ,component: userInfo },
                 { path: 'orders' ,component: orderListCustom },

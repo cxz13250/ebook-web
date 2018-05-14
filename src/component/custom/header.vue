@@ -2,14 +2,14 @@
   <div id="header" class="clearfix" style="background: #07111b;">
       <div class="head-container" id="nav">
           <div class="logo">
-              <router-link class="logo-a" to="/custom/main">
+              <router-link class="logo-a" to="/">
                 <img src="assets/img/logo.png" class="headImg"/>
                 <span class="logo-title">图书借阅系统</span>
               </router-link>
           </div>
           <ul class="nav-item">
               <li>
-                  <router-link to="/custom/main">首页</router-link></li>
+                  <router-link to="/">首页</router-link></li>
               <li>
                   <router-link to="/custom/user">个人信息</router-link></li>
               <li>
@@ -17,11 +17,11 @@
           </ul>
           <div class="search-wrap">
               <div class="searchTags" v-if="showTag">
-                  <router-link :to="{path:'/custom/books',query:{cate:7}}">科技</router-link>
-                  <router-link :to="{path:'/custom/books',query:{cate:3}}">文学</router-link>
+                  <router-link :to="{path:'/custom/books',query:{cate:'科技'}}">科技</router-link>
+                  <router-link :to="{path:'/custom/books',query:{cate:'文学'}}">文学</router-link>
               </div>
               <div class="search-area">
-                  <input type="text" class="search-input" @blur="setTags" @focus="setTags" v-bind="keyword"/>
+                  <input type="text" class="search-input" @blur="setTags" @focus="setTags" v-model="keyword" @click="search"/>
                   <input type="hidden" class="btn_search"/>
                   <ul class="search-area-result"></ul>
               </div>
@@ -104,6 +104,9 @@ export default {
                 window.localStorage.removeItem('user');
                 this.$router.push('/login');
             }
+        },
+        search(){
+            this.$router.push({path:'/custom/books',query:{keyword:this.keyword}});
         }
     }
 }
