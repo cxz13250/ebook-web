@@ -21,7 +21,7 @@
                   <router-link :to="{path:'/custom/books',query:{cate:'文学'}}">文学</router-link>
               </div>
               <div class="search-area">
-                  <input type="text" class="search-input" @blur="setTags" @focus="setTags" v-model="keyword" @click="search"/>
+                  <input type="text" class="search-input" @blur="setTags" @focus="setTags" v-model="keyword" @keyup.enter="search"/>
                   <input type="hidden" class="btn_search"/>
                   <ul class="search-area-result"></ul>
               </div>

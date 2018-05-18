@@ -36,18 +36,24 @@
                                     <table class="table table-bordered table-striped dataTable" id="userTable" cellspacing="0">
                                         <thead>
                                             <tr role="row">
-                                                <th width="25%">借书人</th>
-                                                <th width="25%">借书时间</th>
-                                                <th width="25%">是否归还</th>
-                                                <th width="25%">操作</th>
+                                                <th width="20%">借书人</th>
+                                                <th width="20%">书籍名称</th>
+                                                <th width="20%">借书时间</th>
+                                                <th width="20%">状态</th>
+                                                <th width="20%">操作</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr role="row" v-for="order in orders" :key="order.id">
+                                            <tr role="row" v-for="(order, index) in orders" :key="order.id">
                                                 <td>{{order.userName}}</td>
+                                                <td>{{order.itemVOS[0].bookName}}</td>
                                                 <td>{{order.createTime | formatDate}}</td>
-                                                <td>{{order.allReturned | checkReturn}}</td>
-                                                <td><router-link class="btn btn-info btn-sm" :to="{path:'/admin/order',query:{id:order.id}}">详情</router-link></td>
+                                                <td>{{order.status | checkStatus}}</td>
+                                                <td>
+                                                    <!-- <router-link class="btn btn-info btn-sm" :to="{path:'/admin/order',query:{id:order.id}}">详情</router-link> -->
+                                                    <a class="btn btn-warning btn-sm" @click="check(index)" href="javascript:void(0)" v-if="order.status==0||order.status==2">批准</a>
+                                                    <a class="btn btn-danger btn-sm" @click="deleteOrder(order.id)" href="javascript:void(0)">删除</a>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -64,7 +70,8 @@
 
 <script>
 import { formatDate } from 'util/date-util.js';
-import { getOrders } from 'service/order-service';
+import { getOrders, checkOrder, deleteOrder } from 'service/order-service';
+import { OrderStatus } from 'constants/order-status';
 export default {
     name: 'order-list',
     data() {
@@ -95,13 +102,38 @@ export default {
             }else {
                 return '否';
             }
-        }
+        },
+        checkStatus(status) {
+            if(status==OrderStatus.CHECK_BORROW) {
+                return '借书审核中';
+            }else if(status==OrderStatus.CHECK_RETURN) {
+                return '归还审核中';
+            }else if(status==OrderStatus.OVERDUE) {
+                return '逾期未还';
+            }else if(status==OrderStatus.BORROWED) {
+                return '借阅中';
+            }else if(status==OrderStatus.RETURNED) {
+                return '已归还';
+            }
+        },
     },
     methods: {
         async search() {
             let res = await getOrders(this.page,this.rows);
             if(res.status == 200){
                 this.orders = res.data.list;
+            }
+        },
+        async check(index){
+            let res = await checkOrder(this.orders[index].id);
+            if(res.status == 200){
+                this.search();
+            }
+        },
+        async deleteOrder(id){
+            let res = await deleteOrder(id);
+            if(res.status==200){
+                this.search();
             }
         } 
     }

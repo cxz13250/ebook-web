@@ -31,6 +31,7 @@
                         </dd>
                         <dd class="login-box">
                             <input type="button" class="login-btn" @click="register" value="立即注册">
+                            <router-link to="/" style="float:left">返回主页</router-link>
                             <router-link to="/login" style="float:right">已有账号，立即登录</router-link>
                         </dd>      
                     </dl>

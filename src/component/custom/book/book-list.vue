@@ -1,7 +1,10 @@
 <template>
-  <div>
-      <div class="col-md-12" style="margin-top:30px;">
+  <div v-if="books">
+      <div class="col-md-12" style="margin-top:30px;min-height:550px;" v-if="books.length>0">
           <bookItem v-for="book in books" :key="book.id" :book="book"></bookItem>
+      </div>
+      <div class="col-md-12" style="margin-top:30px;text-align:center;min-height:550px;" v-if="books.length==0">
+          <h1>抱歉，没有找到您想要书籍</h1>
       </div>
   </div>
 </template>

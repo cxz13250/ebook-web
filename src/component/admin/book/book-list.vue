@@ -106,7 +106,7 @@ export default {
     },
     methods: {
         async search() {
-            let res = await getBooks(this.page,this.rows);
+            let res = await getBooks(this.page,this.rows,this.keyword);
             if(res.status == 200){
                 this.books = res.data.list; 
             }
@@ -114,7 +114,7 @@ export default {
         async delete(id) {
             let res = await deleteBook(id);
             if(res.status == 200){
-                
+                this.search();
             }
         }
     }

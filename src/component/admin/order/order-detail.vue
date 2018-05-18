@@ -49,7 +49,7 @@
                       </thead>
                       <tbody>
                         <tr v-for="(item, index) in order.itemVOS" :key="item.id">
-                          <td>{{item.bookName}}</td>
+                          <td><router-link :to="{path:'/admin/book',query:{id:item.bookId}}">{{item.bookName}}</router-link></td>
                           <td>{{item.isReturned | checkReturn}}</td>
                           <td>
                             <input type="button" class="btn btn-danger btn-sm" @click="removeItem(index)" value="删除" style="height:30px"/>

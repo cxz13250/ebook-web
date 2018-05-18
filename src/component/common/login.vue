@@ -16,6 +16,7 @@
                 </dd>
                 <dd class="login-box">
                 <input type="button" class="login-btn" @click="userLogin" value="登录">
+                <router-link to="/" style="float:left">返回主页</router-link>
                 <router-link to="/register" style="float:right">没有账号，立即注册</router-link>
                 </dd>      
               </dl>

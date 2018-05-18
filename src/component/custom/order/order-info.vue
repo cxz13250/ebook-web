@@ -1,5 +1,5 @@
 <template>
-    <div style="min-height: 750px;">
+    <div class="order-panel">
         <div class="order-header">
             <div class="cart-header-warp">
                 <div class="cart-title l">
@@ -34,7 +34,7 @@
                     </p>
                 </div>
             </div>
-            <a href="javascript:void(0)" @click="createOrder" class="r moco-btn-red submit-btn moco-btn">提交借书单</a>
+            <a href="javascript:void(0)" @click="createOrder" class="r moco-btn-red submit-btn moco-btn" style="border-radius: 25px;">提交借书单</a>
         </div>
     </div>
 </template>
@@ -90,6 +90,9 @@ export default {
 </script>
 
 <style>
+.order-panel{
+    min-height: 750px;
+}
 .order-header{
     height: 160px;
     background-color: #e3e6e9;
@@ -158,9 +161,9 @@ export default {
 .detail-box ul li img{
     margin-right: 24px;
 }
-a:link, a:visited {
+/* .order-panel a:link, a:visited {
     color: #5e5e5e;
-}
+} */
 .text-info-box{
     width: 700px;
     height: 100px;
