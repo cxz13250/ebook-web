@@ -1,4 +1,6 @@
 <template>
+<div>
+    <customHeader></customHeader>
     <div class="info-container">
         <div class="info-left">
             <div class="avator-wapper">
@@ -190,11 +192,13 @@
             </div>
         </div>
     </div>
+</div>
 </template>
 
 <script>
 import { getUser,updateUser } from 'service/user-service';
 import { uploadFile } from 'service/common-service';
+import customHeader from 'custom/header.vue';
 export default {
     name: 'user-info',
     data() {
@@ -257,7 +261,7 @@ export default {
         },
     },
     components: {
-
+        customHeader
     }
 }
 </script>

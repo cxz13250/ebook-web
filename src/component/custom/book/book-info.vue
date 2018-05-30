@@ -1,4 +1,6 @@
 <template>
+<div>
+    <customHeader></customHeader>
   <div class="book-wrapper">
       <div class="book-container">
         <div class="book-left">
@@ -27,15 +29,17 @@
             </div>
         </div>
       </div>
-      <div class="line clear-fix"></div>  
-      <bookList :num="8"></bookList>
+      <div class="line clear-fix"></div>    
   </div>
+   <bookList :num="10" :showHead="false" v-on:changeBookEvent="event"></bookList>
+</div>
 </template>
 
 <script>
 import bookList from './book-list.vue'
 import { formatDate } from 'util/date-util.js';
 import { getBook } from 'service/book-service';
+import customHeader from 'custom/header.vue';
 export default {
     name: 'book-info',
     data() {
@@ -77,10 +81,15 @@ export default {
             if(res.status ==200){
                 this.book =res.data;
             }
+        },
+        event(data){
+            this.id=data;
+            this.search();
         }
     },
     components:{
         bookList,
+        customHeader
     },
 }
 </script>
@@ -90,9 +99,9 @@ export default {
     width: 100%;
     background-color: #fff;
     margin: 0 auto;
-    padding: 30px 8%;
+    padding: 30px 5%;
     display: table;
-    min-height: 900px;
+    min-height: 400px;
 }
 .book-left{
     float: left;

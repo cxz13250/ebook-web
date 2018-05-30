@@ -1,4 +1,6 @@
 <template>
+<div>
+    <customHeader></customHeader>
   <div class="order-container">
       <div class="order-title">
           <h2>借阅记录</h2>
@@ -55,6 +57,7 @@
           </div>
       </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -62,6 +65,7 @@ import { getOrders, updateOrder } from 'service/order-service';
 import { formatDate } from 'util/date-util.js';
 import { OrderStatus } from 'constants/order-status';
 import { getUser } from 'service/user-service';
+import customHeader from 'custom/header.vue';
 export default {
     name: 'order-list',
     data() {
@@ -149,6 +153,9 @@ export default {
             return formatDate(time);
         }
     },
+    components:{
+        customHeader
+    }
 }
 </script>
 

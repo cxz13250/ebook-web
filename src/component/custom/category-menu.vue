@@ -46,7 +46,7 @@ export default {
     line-height: 40px;
     height: 40px;
     position: relative;
-    margin-right: 48px;
+    margin-right: 75px;
     font-weight: bold;
 }
 .category-nav div{

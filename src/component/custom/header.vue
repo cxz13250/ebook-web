@@ -17,8 +17,8 @@
           </ul>
           <div class="search-wrap">
               <div class="searchTags" v-if="showTag">
-                  <router-link :to="{path:'/custom/books',query:{cate:'科技'}}">科技</router-link>
-                  <router-link :to="{path:'/custom/books',query:{cate:'文学'}}">文学</router-link>
+                  <a @click="searchByMenu('科技')" class="pointer">科技</a>
+                  <a @click="searchByMenu('文艺')" class="pointer">文艺</a>
               </div>
               <div class="search-area">
                   <input type="text" class="search-input" @blur="setTags" @focus="setTags" v-model="keyword" @keyup.enter="search"/>
@@ -72,6 +72,7 @@
 
 <script>
 import { getUser, loginout } from 'service/user-service';
+import { getBooks ,getBooksByCategory, getBooksByMenu } from 'service/book-service';
 export default {
     name: 'custom-head',
     data() {
@@ -79,7 +80,9 @@ export default {
             user: {},
             showLogin: true,
             showTag: true,
-            keyword:""
+            keyword:"",
+            page:1,
+            rows:10,
         }
     },
     created() {
@@ -95,8 +98,25 @@ export default {
         setTags() {
             this.showTag = !this.showTag;
         },
-        search() {
-            this.$router.push({path: '/custom/books',query:{keyword:this.keyword}});
+        async search() {
+            if(this.$route.path.startsWith("/custom/books")){
+                let res = await getBooks(this.page,this.rows,this.keyword);
+                if(res.status == 200){
+                    this.$emit("changeBooks",res.data.list); 
+                }
+            }else{
+                this.$router.push({path:"/custom/books",query:{keyword:this.keyword}});
+            }
+        },
+        async searchByMenu(menu){
+            if(this.$route.path.startsWith("/custom/books")){
+                let res = await getBooksByMenu(menu);
+                if(res.status == 200){
+                    this.$emit("changeBooks",res.data.list); 
+                }
+            }else{
+                this.$router.push({path:"/custom/books",query:{cate:menu}});
+            }
         },
         async logout() {
             let res=await loginout();
@@ -105,9 +125,6 @@ export default {
                 this.$router.push('/login');
             }
         },
-        search(){
-            this.$router.push({path:'/custom/books',query:{keyword:this.keyword}});
-        }
     }
 }
 </script>

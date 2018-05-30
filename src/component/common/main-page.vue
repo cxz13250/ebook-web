@@ -3,7 +3,7 @@
       <customHeader></customHeader>
       <customCurtain></customCurtain>
       <categoryNav></categoryNav>
-      <bookList :num="10"></bookList>
+      <bookList :num="20" :showHead="false"></bookList>
       <efooter></efooter>
   </div>
 </template>

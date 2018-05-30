@@ -2,7 +2,7 @@
 <div v-if="user">
   <header class="main-header">
       <!-- Logo -->
-    <a href="/#/admin" class="logo">
+    <a href="/#/admin" class="logo" style="marign:0">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>E</b>bS</span>
       <!-- logo for regular state and mobile devices -->

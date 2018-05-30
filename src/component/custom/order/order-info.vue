@@ -1,4 +1,6 @@
 <template>
+<div>
+    <customHeader></customHeader>
     <div class="order-panel">
         <div class="order-header">
             <div class="cart-header-warp">
@@ -37,12 +39,14 @@
             <a href="javascript:void(0)" @click="createOrder" class="r moco-btn-red submit-btn moco-btn" style="border-radius: 25px;">提交借书单</a>
         </div>
     </div>
+</div>
 </template>
 
 <script>
 import { getUser } from 'service/user-service';
 import { getBook } from 'service/book-service';
 import { createOrder } from 'service/order-service';
+import customHeader from 'custom/header.vue';
 export default {
     name: 'order-info',
     data() {
@@ -85,6 +89,9 @@ export default {
                 this.$router.push('/custom/orders');
             }
         }
+    },
+    components:{
+        customHeader
     }
 }
 </script>
