@@ -65,6 +65,20 @@
                                     </table>
                                   </div>
                               </div>
+                              <div class="row">
+                                  <div class="col-sm-12 clearfix">
+                                      <div style="float: right">
+                                          <el-pagination
+                                                  background
+                                                  layout="prev, pager, next, jumper"
+                                                  :total="total" :pager-count="5" :page-size="rows"
+                                                  :current-page="page" @current-change="currentPageChange"
+                                                  @pre-click="prePageClick" @next-click="nextPageClick">
+
+                                          </el-pagination>
+                                      </div>
+                                  </div>
+                              </div>
                           </div>
                       </div>
                   </div>
@@ -83,7 +97,7 @@ export default {
         return {
             keyword: '',
             page: 1,
-            rows: 20,
+            rows: 4,
             books: [
                 {
                     id: 1,
@@ -92,8 +106,33 @@ export default {
                     number: 'ECS12124',
                     time: '2011-01-01',
                     recent: 10
+                },
+                {
+                    id: 1,
+                    name: '三国演义',
+                    author: '罗贯中',
+                    number: 'ECS12124',
+                    time: '2011-01-01',
+                    recent: 10
+                },
+                {
+                    id: 1,
+                    name: '三国演义',
+                    author: '罗贯中',
+                    number: 'ECS12124',
+                    time: '2011-01-01',
+                    recent: 10
+                },
+                {
+                    id: 1,
+                    name: '三国演义',
+                    author: '罗贯中',
+                    number: 'ECS12124',
+                    time: '2011-01-01',
+                    recent: 10
                 }
-            ]
+            ],
+            total: 6,
         }
     },
     filters: {
@@ -108,7 +147,8 @@ export default {
         async search() {
             let res = await getBooks(this.page,this.rows,this.keyword);
             if(res.status == 200){
-                this.books = res.data.list; 
+                this.books = res.data.list;
+                this.total = res.data.total;
             }
         },
         async delete(id) {
@@ -116,6 +156,19 @@ export default {
             if(res.status == 200){
                 this.search();
             }
+        },
+        currentPageChange(val) {
+            //参数是当前页
+            this.page = val;
+            this.search();
+        },
+        prePageClick(val) {
+            val-=1;
+            currentPageChange(val);
+        },
+        nextPageClick(val) {
+            val+=1;
+            currentPageChange(val);
         }
     }
 }

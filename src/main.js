@@ -3,6 +3,7 @@ import App from './app';
 import router from './router/router'
 import VueResource from 'vue-resource'
 import VueSweetalert2 from 'vue-sweetalert2';
+import {Pagination} from 'element-ui'
 
 import 'css/main.css';
 import $ from 'jquery';
@@ -30,6 +31,7 @@ Vue.config.debug = true;//开启错误提示
 
 Vue.use(VueResource);
 Vue.use(VueSweetalert2);
+Vue.use(Pagination);
 
 Vue.http.interceptors.push((request, next) => {
     next((response) => {
